@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "emitDeclarationOnly": false,
+    "skipLibCheck": true,
+    "strict": true, // Включает строгий режим
+    "baseUrl": "./",
+    "outDir": "./dist",
+    "paths": {
+      "@lle/*": ["src/*"], // Настройки путей
+      "@llec/*": ["src/controller/*"], // Настройки путей
+      "@llev/*": ["src/view/*"], // Настройки путей
+    }
+  },
+  "include": ["src/**/*", "src/lle.js", "src/lle.ts"],
+  "exclude": ["node_modules/", "**/__tests__/*, ", "lle.ts"]
+}
