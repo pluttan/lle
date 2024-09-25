@@ -5,8 +5,8 @@
   "main": "dist/lle.js",
   "types": "dist/lle.d.ts",
   "scripts": {
-    "test": "jest --config ./test/jest.config.js",
-    "test:testlib": "jest --config ./test/jest.testlib.config.js",
+    "test": "git add .&&git commit -m 'testpatch'&&npm version patch&&npm publish&&cd test/testlib&&npm update&&jest --config ./test/jest.config.js",
+    "test:testlib": "git add .&&git commit -m 'testpatch'&&npm version patch&&npm publish&&cd test/testlib&&npm update&&jest --config ./test/jest.testlib.config.js",
     "test:element": "jest --config ./test/jest.element.config.js",
     "build": "webpack --config webpack.config.js",
     "dev": "tsc --watch",
