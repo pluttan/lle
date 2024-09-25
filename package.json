@@ -5,9 +5,9 @@
   "main": "dist/lle.js",
   "types": "dist/lle.d.ts",
   "scripts": {
-    "test": "jest -config=./test/config/jest.config.js",
-    "test:testlib": "jest -config=./test/config/jest.testlib.config.js",
-    "test:element": "jest -config=./test/config/jest.element.config.js",
+    "test": "jest --config ./test/jest.config.js",
+    "test:testlib": "jest --config ./test/jest.testlib.config.js",
+    "test:element": "jest --config ./test/jest.element.config.js",
     "build": "webpack --config webpack.config.js",
     "dev": "tsc --watch",
     "prettier": "prettier --write src/* test/* example/*",
