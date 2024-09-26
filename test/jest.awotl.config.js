@@ -4,7 +4,7 @@ module.exports = {
         "src/**/*.ts", // Укажите файлы для сбора покрытия
         "!src/**/*.d.ts" // Исключите определенные файлы, если нужно
     ],
-    coverageDirectory: "test/coverage/all", 
+    coverageDirectory: "test/coverage/awotl", 
     coverageReporters: ["html"],
     
 
@@ -12,4 +12,5 @@ module.exports = {
     preset: 'ts-jest',
     testEnvironment: 'node',
     moduleFileExtensions: ['js', 'ts'],
+    testPathIgnorePatterns: ['test/testlib/'],  // Изменено на корректный путь
 };

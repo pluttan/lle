@@ -12,6 +12,9 @@ declare class Connection implements Interface.Connection {
     disConnects(inSourceArray: Types.SourcesArray): Interface.Connection;
     isConnected(): boolean;
     lenInConnected(): number;
+    clone(): Interface.Connection;
+    getArrayInString(): string[];
+    findInString(element: Interface.Element): string;
 }
 export default Connection;
 //# sourceMappingURL=connection.d.ts.map

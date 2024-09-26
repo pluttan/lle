@@ -65,6 +65,29 @@ class Connection implements Interface.Connection {
     lenInConnected(): number {
         return Array.isArray(this.in) ? this.in.length : 0;
     }
+
+    clone(element: Interface.Element): Interface.Connection {
+        return new Connection([this.out[0], element]);
+    }
+
+    getArrayInString(): string[]{
+        let arr: string[] = [];
+        if (Array.isArray(this.in)) {
+            for (let i = 0; i < this.in.length; i++) {
+                arr.push(this.in[i][0]);
+            }  
+        }
+        return arr
+    }
+
+    findInString(element: Interface.Element): string{
+        if (Array.isArray(this.in)) {
+            for (let i = 0; i < this.in.length; i++) {
+                if (this.in[i][1] === element) return this.in[i][0];
+            }  
+        }
+        return '';
+    }
 }
 
 export default Connection;

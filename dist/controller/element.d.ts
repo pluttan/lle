@@ -14,6 +14,7 @@ declare class Element implements Interface.Element {
     in(name: string): (Interface.Connection | string);
     out(name: string): Interface.Connection;
     genState(array: Types.DSSSArray): Types.SignalArray[];
+    clone(): Interface.Element;
     isAllInConnected(): boolean;
     isAllSignalNotZ(): boolean;
     isReady(): boolean;

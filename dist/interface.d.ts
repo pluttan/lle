@@ -74,6 +74,11 @@ interface Element {
      */
     genState(array: Types.DSSSArray): Types.SignalArray[];
     /**
+     * * Клонирует элемент вместе с подключениями
+     * @returns Новый элемент -- копия this
+     */
+    clone(): Element;
+    /**
      * * Проверяет все ли входы подключены к выходам
      * @returns True если все входы подключены
      */
@@ -127,15 +132,31 @@ interface Connection {
      */
     disConnects(inSourceArray: Types.SourcesArray): Connection;
     /**
-     * * Проверяет наличие соединения
-     * @returns True если есть соединение
-     */
-    isConnected(): boolean;
-    /**
      * * Количество соединенных входов
      * @returns Количество
      */
     lenInConnected(): number;
+    /**
+     * * Клонирует подключения
+     * @returns Новый элемент -- копия this
+     */
+    clone(): Connection;
+    /**
+     * * Возвращает массив входов в виде строки
+     * @returns массив входов в виде строки
+     */
+    getArrayInString(): string[];
+    /**
+     * * Находит вход по элементу
+     * @param element Элемент, чей вход мы ищем
+     * @returns массив входов в виде строки
+     */
+    findInString(element: Element): string;
+    /**
+     * * Проверяет наличие соединения
+     * @returns True если есть соединение
+     */
+    isConnected(): boolean;
     /**
      * * Массив входов соединения
      */
