@@ -1,6 +1,6 @@
 {
   "name": "ldamle",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Library for drawning and modeling logical elements",
   "main": "dist/lle.js",
   "types": "dist/lle.d.ts",
