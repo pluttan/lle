@@ -131,7 +131,7 @@ type DSSSArray = (DetailSignal|StringSignalArray|StateSignal)[];
 /**
  * * Определение входа/выхода для соединения
  */
-type Sources = [string, Element];
+type Sources = {name:string, element:Element};
 //----------------------------------- Sources -----------------------------------//
 
 
@@ -150,6 +150,7 @@ export {
     SignalArray, 
     StateSignal, 
     StateSignalArray, 
+    StringSignalArray,
     DetailSignal, 
     DetailSignalArray, 
     DSSSArray,

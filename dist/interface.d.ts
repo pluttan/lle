@@ -62,6 +62,12 @@ interface Element {
      */
     in(name: string): (Connection | string);
     /**
+     * * Ищет вход с названием name и возвращает его индекс
+     * @param name Название входа
+     * @returns Индекс в массиве in_connections
+     */
+    inIndex(name: string): number;
+    /**
      * * Ищет выход с названием name
      * @param name Название выхода
      * @returns Соединение
@@ -138,9 +144,10 @@ interface Connection {
     lenInConnected(): number;
     /**
      * * Клонирует подключения
+     * @param element Элемент, чьи выходы теперь будут
      * @returns Новый элемент -- копия this
      */
-    clone(): Connection;
+    clone(element: Element): Connection;
     /**
      * * Возвращает массив входов в виде строки
      * @returns массив входов в виде строки

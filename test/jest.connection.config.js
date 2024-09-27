@@ -3,7 +3,7 @@ const { testMatch } = require("./jest.testlib.config");
 module.exports = {
     collectCoverage: true,
     collectCoverageFrom: [
-        "src/connection/element.ts", 
+        "src/controller/connection.ts", 
     ],
     coverageDirectory: "test/coverage/connection", 
     coverageReporters: ["html"],
@@ -13,5 +13,5 @@ module.exports = {
     preset: 'ts-jest',
     testEnvironment: 'node',
     moduleFileExtensions: ['js', 'ts'],
-    testMatch: ['**/test/Element/**/*.test.ts'],
+    testMatch: ['**/test/Connection/**/*.test.ts'],
 };

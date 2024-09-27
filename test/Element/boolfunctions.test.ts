@@ -30,7 +30,7 @@ describe('Check bool functions', () => {
 
     test('isAllInConnected => true', () => {
         for (let i = 0; i < element1.in_connections.length; i++) {
-            element1.in(element1.in_connections[i], element1.out(element1.out_connections[i].out[0]));
+            element1.in(element1.in_connections[i], element1.out(element1.out_connections[i].out.name));
         }
         expect(element1.isAllInConnected()).toEqual(true);
     });

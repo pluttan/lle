@@ -26,44 +26,55 @@ class Element implements Interface.Element {
 
     setParams(inName: string[], outName: string[], signals: Types.DSSSArray): Interface.Element {
         for (let i = 0; i < outName.length; i++) {
-            this.out_connections.push(Factories.Connection.create([outName[i], this]));
+            this.out_connections.push(
+                Factories.Connection.create({ name: outName[i], element: this })
+            );
         }
         this.in_connections = inName;
-        this.state = this.genState(signals);
+        // this.state = this.genState(signals);
         return this;
     }
 
     concat(elementOut: Element, elementIn: Element): Interface.Element {
-        elementOut = elementOut.clone();
-        elementIn = elementIn.clone();
-        if (elementOut.out_connections.length < elementIn.in_connections.length) {
-            for (let i = 0; i < elementOut.out_connections.length; i++) {
-                elementIn.in(elementIn.in_connections[i] as string, elementOut.out_connections[i]);
+        let elementOutn = elementOut.clone();
+        let elementInn = elementIn.clone();
+        if (elementOutn.out_connections.length < elementInn.in_connections.length) {
+            for (let i = 0; i < elementOutn.out_connections.length; i++) {
+                elementInn.in(elementInn.in_connections[i] as string, elementOutn.out_connections[i]);
             }
-            for (let i = 0; i < elementOut.in_connections.length; i++) {
-                this.in_connections.push(elementOut.in_connections[i] as string);
+            for (let i = 0; i < elementOutn.in_connections.length; i++) {
+                this.in_connections.push(elementOutn.in_connections[i] as string);
             }
-            for (let i = elementOut.out_connections.length; i < elementIn.in_connections.length; i++) {
-                this.in_connections.push(elementIn.in_connections[i] as string);
+            for (let i = elementOutn.out_connections.length; i < elementInn.in_connections.length; i++) {
+                this.in_connections.push(elementInn.in_connections[i] as string);
             }
-            for (let i = 0; i < elementIn.out_connections.length; i++) {
-                this.out_connections.push(elementIn.out_connections[i]);
+            for (let i = 0; i < elementInn.out_connections.length; i++) {
+                this.out_connections.push(elementInn.out_connections[i]);
             }
         } else {
-            for (let i = 0; i < elementIn.in_connections.length; i++) {
-                elementIn.in(elementIn.in_connections[i] as string, elementOut.out_connections[i]);
+            for (let i = 0; i < elementInn.in_connections.length; i++) {
+                elementInn.in(elementInn.in_connections[i] as string, elementOutn.out_connections[i]);
                 // this.out_connections.push(elementIn.out_connections[i]);
             }
-            for (let i = 0; i < elementIn.out_connections.length; i++) {
-                this.out_connections.push(elementIn.out_connections[i]);
+            for (let i = 0; i < elementInn.out_connections.length; i++) {
+                this.out_connections.push(elementInn.out_connections[i]);
             }
-            for (let i = elementIn.in_connections.length; i < elementOut.out_connections.length; i++) {
-                this.out_connections.push(elementOut.out_connections[i]);
+            for (let i = elementInn.in_connections.length; i < elementOutn.out_connections.length; i++) {
+                this.out_connections.push(elementOutn.out_connections[i]);
             }
-            for (let i = 0; i < elementOut.in_connections.length; i++) {
-                this.in_connections.push(elementOut.in_connections[i]);
+            for (let i = 0; i < elementOutn.in_connections.length; i++) {
+                this.in_connections.push(elementOutn.in_connections[i]);
             }
         }
+        for (let i = 0; i < this.in_connections.length; i++) {
+            if (typeof this.in_connections[i] !== 'string') {
+                this.in_connections[i] = (this.in_connections[i] as Interface.Connection).clone(this);
+            }
+        }
+        for (let i = 0; i < this.out_connections.length; i++) {
+            this.out_connections[i] = this.out_connections[i].clone(this);
+        }
+
         // далее для state тут надо просимулировать
         return this;
     }
@@ -86,7 +97,7 @@ class Element implements Interface.Element {
     in(name: string): (Interface.Connection | string);
     in(name: string, connection?: Interface.Connection): (Interface.Connection | string) {
         if (connection) {
-            connection.inConnect([name, this]);
+            connection.inConnect({ name: name, element: this });
             for (let i = 0; i < this.in_connections.length; i++) {
                 if (this.in_connections[i] === name) {
                     this.in_connections[i] = connection;
@@ -100,16 +111,29 @@ class Element implements Interface.Element {
                 if (this.in_connections[i] === name) {
                     return this.in_connections[i];
                 }
-            } else if ((this.in_connections[i] as Interface.Connection).findInString(this)===name) {
+            } else if ((this.in_connections[i] as Interface.Connection).findInString(this) === name) {
                 return this.in_connections[i];
             }
         }
         return '';
     }
 
+    inIndex(name: string): number{
+        for (let i = 0; i < this.in_connections.length; i++) {
+            if (typeof this.in_connections[i] === 'string') {
+                if (this.in_connections[i] === name) {
+                    return i;
+                }
+            } else if ((this.in_connections[i] as Interface.Connection).findInString(this) === name) {
+                return i;
+            }
+        }
+        return 0;
+    };
+
     out(name: string): Interface.Connection {
         for (let i = 0; i < this.out_connections.length; i++) {
-            if (this.out_connections[i].out[0] === name) {
+            if (this.out_connections[i].out.name === name) {
                 return this.out_connections[i];
             }
         }
@@ -117,10 +141,101 @@ class Element implements Interface.Element {
     }
 
     genState(array: Types.DSSSArray): Types.SignalArray[] {
-        // for (let i = 0; i < array.length; i++){
-        //     console.log(typeof array[i]);
-        // }
+        this.state = new Array(2 ** this.in_connections.length).fill(
+            new Array(this.out_connections.length).fill("z")
+        );
+        for (let i = 0; i < array.length; i++) {
+            if (
+                typeof array[i] === 'object' &&
+                "in" in (array[i] as object) &&
+                "out" in (array[i] as object)
+            ) {
+                this.genStateDetailSignal(array[i] as Types.DetailSignal);
+            }
+            else if (
+                typeof array[i] === 'object' &&
+                "name" in (array[i] as object) &&
+                "state" in (array[i] as object) &&
+                "out" in (array[i] as object)
+            ) {
+                this.genStateSignal(array[i] as Types.StateSignal);
+            }
+            else {
+                let eqArray:Types.SignalArray = new Array(this.out_connections.length).fill("z");
+                for (let i = 0; i < this.state.length; i++) {
+                    if (this.state[i] === eqArray) {
+                        this.state[i] = array[i] as Types.SignalArray;
+                        break
+                    }
+                }
+            }
+        }
         return [];
+    }
+
+    private genStateDetailSignal(state: Types.DetailSignal): void {
+        if (Array.isArray(state.in)) {
+            state.in = state.in.join('');
+        }
+        let flag = true;
+        for (let i = 0; i < state.in.length; i++) {
+            if (state.in[i] === "x") {
+                this.genStateDetailSignal({
+                    in: state.in.slice(0, i) + 0 + state.in.slice(i),
+                    out: state.out
+                });
+                this.genStateDetailSignal({
+                    in: state.in.slice(0, i) + 1 + state.in.slice(i),
+                    out: state.out
+                });
+                flag = false;
+            }
+        }
+        if (flag) {
+            if (typeof state.out === "string") this.genStateGenOutFromStr(state.out);
+            this.state[parseInt(state.in, 2)] = state.out as Types.SignalArray;
+        }
+    }
+
+    private genStateSignal(state: Types.StateSignal, arri?: number[]): void {
+        if (
+            typeof state.out === 'object' &&
+            "name" in (state.out as object) &&
+            "state" in (state.out as object) &&
+            "out" in (state.out as object)
+        ){
+            if(arri){
+                arri.push(this.inIndex(state.name))
+                this.genStateSignal(state.out as Types.StateSignal, arri);
+            } else {
+                this.genStateSignal(state.out as Types.StateSignal, [this.inIndex(state.name)]);
+            }
+            return
+        }
+        let ie = new Array(this.in_connections.length).fill("x");
+        if (arri){
+            for (let i = 0; i < arri.length; i++){
+                ie[arri[i]] = state.state;
+            }
+        }
+        ie[this.inIndex(state.name)] = state.state;
+        this.genStateDetailSignal({in:ie, out:(state.out as Types.StringSignalArray)})
+    }
+
+    private genStateGenOutFromStr(outState: string): Types.SignalArray {
+        const result: Types.SignalArray = [];
+        for (let i = 0; i < outState.length; i++) {
+            const char = outState[i]; // Получаем символ по индексу
+            const num = parseInt(char, 10); // Пробуем преобразовать в число
+
+            // Если это число, добавляем его в массив, иначе добавляем символ
+            if (!isNaN(num)) {
+                result.push(num as Types.Signal);
+            } else {
+                result.push(char as Types.Signal);
+            }
+        }
+        return result;
     }
 
     clone(): Interface.Element {

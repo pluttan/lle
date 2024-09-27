@@ -22,14 +22,14 @@ describe('Element initialization by arrays of strings and signals', () => {
 
     test('out_connections should be set correctly', () => {
         const expectedOutConnections = [
-            { in: false, out: ['F_0', expect.anything()] },
-            { in: false, out: ['F_1', expect.anything()] },
-            { in: false, out: ['F_2', expect.anything()] },
-            { in: false, out: ['F_3', expect.anything()] },
-            { in: false, out: ['F_4', expect.anything()] },
-            { in: false, out: ['F_5', expect.anything()] },
-            { in: false, out: ['F_6', expect.anything()] },
-            { in: false, out: ['F_7', expect.anything()] }
+            { in: false, out: {name:'F_0', element:element1} },
+            { in: false, out: {name:'F_1', element:element1} },
+            { in: false, out: {name:'F_2', element:element1} },
+            { in: false, out: {name:'F_3', element:element1} },
+            { in: false, out: {name:'F_4', element:element1} },
+            { in: false, out: {name:'F_5', element:element1} },
+            { in: false, out: {name:'F_6', element:element1} },
+            { in: false, out: {name:'F_7', element:element1} }
         ];
         expect(element1.out_connections).toEqual(expectedOutConnections);
     });

@@ -12,8 +12,12 @@ declare class Element implements Interface.Element {
     add(elementOut: Element): Interface.Element;
     in(name: string, connection: Interface.Connection): (Interface.Connection | string);
     in(name: string): (Interface.Connection | string);
+    inIndex(name: string): number;
     out(name: string): Interface.Connection;
     genState(array: Types.DSSSArray): Types.SignalArray[];
+    private genStateDetailSignal;
+    private genStateSignal;
+    private genStateGenOutFromStr;
     clone(): Interface.Element;
     isAllInConnected(): boolean;
     isAllSignalNotZ(): boolean;

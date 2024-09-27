@@ -35,7 +35,13 @@ class Connection implements Interface.Connection {
 
     disConnect(inSource: Types.Sources): Interface.Connection {
         if (Array.isArray(this.in)) {
-            this.in = this.in.filter(source => source !== inSource); 
+            for (let i = 0; i < this.in.length; i++) {
+                if (this.in[i].name === inSource.name && this.in[i].element === inSource.element) {
+                    this.in.splice(i, 1);
+                    break;
+                }
+            }
+            if (this.in.length == 0) {this.in = false;}
         }
         return this;
     }
@@ -67,14 +73,14 @@ class Connection implements Interface.Connection {
     }
 
     clone(element: Interface.Element): Interface.Connection {
-        return new Connection([this.out[0], element]);
+        return new Connection({name:this.out.name, element:element});
     }
 
     getArrayInString(): string[]{
         let arr: string[] = [];
         if (Array.isArray(this.in)) {
             for (let i = 0; i < this.in.length; i++) {
-                arr.push(this.in[i][0]);
+                arr.push(this.in[i].name);
             }  
         }
         return arr
@@ -83,7 +89,8 @@ class Connection implements Interface.Connection {
     findInString(element: Interface.Element): string{
         if (Array.isArray(this.in)) {
             for (let i = 0; i < this.in.length; i++) {
-                if (this.in[i][1] === element) return this.in[i][0];
+                if (this.in[i].element === element) 
+                    return this.in[i].name;
             }  
         }
         return '';

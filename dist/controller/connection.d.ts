@@ -12,7 +12,7 @@ declare class Connection implements Interface.Connection {
     disConnects(inSourceArray: Types.SourcesArray): Interface.Connection;
     isConnected(): boolean;
     lenInConnected(): number;
-    clone(): Interface.Connection;
+    clone(element: Interface.Element): Interface.Connection;
     getArrayInString(): string[];
     findInString(element: Interface.Element): string;
 }

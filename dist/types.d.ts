@@ -101,10 +101,13 @@ type DSSSArray = (DetailSignal | StringSignalArray | StateSignal)[];
 /**
  * * Определение входа/выхода для соединения
  */
-type Sources = [string, Element];
+type Sources = {
+    name: string;
+    element: Element;
+};
 /**
  * * Массив входов/выходов для соединения
  */
 type SourcesArray = Sources[];
-export { Signal, SignalArray, StateSignal, StateSignalArray, DetailSignal, DetailSignalArray, DSSSArray, Sources, SourcesArray };
+export { Signal, SignalArray, StateSignal, StateSignalArray, StringSignalArray, DetailSignal, DetailSignalArray, DSSSArray, Sources, SourcesArray };
 //# sourceMappingURL=types.d.ts.map

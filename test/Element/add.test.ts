@@ -43,14 +43,14 @@ describe('Check add function', () => {
     });
     test('add element out connections when in<out', () => {
         const expectedOutConnections = [
-            { in: false, out: ["F_0", element1] },
-            { in: false, out: ["F_1", element1] },
-            { in: false, out: ["F_2", element1] },
-            { in: false, out: ["F_3", element1] },
-            { in: false, out: ["F_4", element1] },
-            { in: false, out: ["F_5", element1] },
-            { in: false, out: ["F_6", element1] },
-            { in: false, out: ["F_7", element1] }
+            { in: false, out: {name:"F_0", element:element1} },
+            { in: false, out: {name:"F_1", element:element1} },
+            { in: false, out: {name:"F_2", element:element1} },
+            { in: false, out: {name:"F_3", element:element1} },
+            { in: false, out: {name:"F_4", element:element1} },
+            { in: false, out: {name:"F_5", element:element1} },
+            { in: false, out: {name:"F_6", element:element1} },
+            { in: false, out: {name:"F_7", element:element1} }
         ];
         expect(element1.out_connections).toEqual(expectedOutConnections);
     })
@@ -68,11 +68,10 @@ describe('Check add function', () => {
     })
     test('add element out connections when in>out', () => {
         const expectedOutConnections = [
-            { in: false, out: ["F_2", element3] },
-            { in: false, out: ["F_1", element3] },
-            { in: false, out: ["F_0", element3] }
+            { in: false, out: {name:"F_2", element:element3} },
+            { in: false, out: {name:"F_1", element:element3} },
+            { in: false, out: {name:"F_0", element:element3} }
         ];
-        console.log(element3.out_connections, expectedOutConnections);
         expect(element3.out_connections).toEqual(expectedOutConnections);
     })
 });
