@@ -6,7 +6,7 @@ module.exports = {
         "src/controller/connection.ts", 
     ],
     coverageDirectory: "test/coverage/connection", 
-    coverageReporters: ["html"],
+    coverageReporters: ["html", "text"],
     
 
     rootDir: '../',

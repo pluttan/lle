@@ -5,7 +5,7 @@ module.exports = {
         "!src/**/*.d.ts" // Исключите определенные файлы, если нужно
     ],
     coverageDirectory: "test/coverage/all", 
-    coverageReporters: ["html"],
+    coverageReporters: ["html", "text"],
     
 
     rootDir: '../',

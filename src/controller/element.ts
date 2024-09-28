@@ -24,7 +24,7 @@ class Element implements Interface.Element {
 
 
 
-    setParams(inName: string[], outName: string[], signals: Types.DSSSArray): Interface.Element {
+    setParams(inName: string[], outName: string[], signals: Types.DSSSArray): Element {
         for (let i = 0; i < outName.length; i++) {
             this.out_connections.push(
                 Factories.Connection.create({ name: outName[i], element: this })
@@ -66,11 +66,11 @@ class Element implements Interface.Element {
                 this.in_connections.push(elementOutn.in_connections[i]);
             }
         }
-        for (let i = 0; i < this.in_connections.length; i++) {
-            if (typeof this.in_connections[i] !== 'string') {
-                this.in_connections[i] = (this.in_connections[i] as Interface.Connection).clone(this);
-            }
-        }
+        // for (let i = 0; i < this.in_connections.length; i++) {
+        //     if (typeof this.in_connections[i] !== 'string') {
+        //         this.in_connections[i] = (this.in_connections[i] as Interface.Connection).clone(this);
+        //     }
+        // }
         for (let i = 0; i < this.out_connections.length; i++) {
             this.out_connections[i] = this.out_connections[i].clone(this);
         }
@@ -79,7 +79,7 @@ class Element implements Interface.Element {
         return this;
     }
 
-    add(elementOut: Element): Interface.Element {
+    add(elementOut: Element): Element {
         if (this.in_connections.length < elementOut.out_connections.length) {
             let len = this.in_connections.length;
             for (let i = 0; i < len; i++) {
@@ -118,7 +118,7 @@ class Element implements Interface.Element {
         return '';
     }
 
-    inIndex(name: string): number{
+    inIndex(name: string): number {
         for (let i = 0; i < this.in_connections.length; i++) {
             if (typeof this.in_connections[i] === 'string') {
                 if (this.in_connections[i] === name) {
@@ -128,7 +128,7 @@ class Element implements Interface.Element {
                 return i;
             }
         }
-        return 0;
+        return -1;
     };
 
     out(name: string): Interface.Connection {
@@ -161,9 +161,9 @@ class Element implements Interface.Element {
                 this.genStateSignal(array[i] as Types.StateSignal);
             }
             else {
-                let eqArray:Types.SignalArray = new Array(this.out_connections.length).fill("z");
+                let eqArray: Types.SignalArray = new Array(this.out_connections.length).fill("z");
                 for (let i = 0; i < this.state.length; i++) {
-                    if (this.state[i] === eqArray) {
+                    if (JSON.stringify(this.state[i]) === JSON.stringify(eqArray)) {
                         this.state[i] = array[i] as Types.SignalArray;
                         break
                     }
@@ -181,45 +181,50 @@ class Element implements Interface.Element {
         for (let i = 0; i < state.in.length; i++) {
             if (state.in[i] === "x") {
                 this.genStateDetailSignal({
-                    in: state.in.slice(0, i) + 0 + state.in.slice(i),
+                    in: state.in.slice(0, i) + 0 + state.in.slice(i + 1),
                     out: state.out
                 });
                 this.genStateDetailSignal({
-                    in: state.in.slice(0, i) + 1 + state.in.slice(i),
+                    in: state.in.slice(0, i) + 1 + state.in.slice(i + 1),
                     out: state.out
                 });
                 flag = false;
             }
         }
         if (flag) {
-            if (typeof state.out === "string") this.genStateGenOutFromStr(state.out);
+            if (typeof state.out === "string") state.out = this.genStateGenOutFromStr(state.out);
             this.state[parseInt(state.in, 2)] = state.out as Types.SignalArray;
         }
     }
 
-    private genStateSignal(state: Types.StateSignal, arri?: number[]): void {
+    private genStateSignal(state: Types.StateSignal, arri?: [number, Types.Signal][]): void {
         if (
             typeof state.out === 'object' &&
             "name" in (state.out as object) &&
             "state" in (state.out as object) &&
             "out" in (state.out as object)
-        ){
-            if(arri){
-                arri.push(this.inIndex(state.name))
+        ) {
+            if (arri) {
+                arri.push(
+                    [this.inIndex(state.name), state.state]
+                );
                 this.genStateSignal(state.out as Types.StateSignal, arri);
             } else {
-                this.genStateSignal(state.out as Types.StateSignal, [this.inIndex(state.name)]);
+                this.genStateSignal(state.out as Types.StateSignal,
+                    [[this.inIndex(state.name), state.state]]
+                );
             }
             return
         }
         let ie = new Array(this.in_connections.length).fill("x");
-        if (arri){
-            for (let i = 0; i < arri.length; i++){
-                ie[arri[i]] = state.state;
+
+        if (arri) {
+            for (let i = 0; i < arri.length; i++) {
+                ie[arri[i][0]] = arri[i][1];
             }
         }
         ie[this.inIndex(state.name)] = state.state;
-        this.genStateDetailSignal({in:ie, out:(state.out as Types.StringSignalArray)})
+        this.genStateDetailSignal({ in: ie, out: (state.out as Types.StringSignalArray) })
     }
 
     private genStateGenOutFromStr(outState: string): Types.SignalArray {
@@ -238,7 +243,7 @@ class Element implements Interface.Element {
         return result;
     }
 
-    clone(): Interface.Element {
+    clone(): Element {
         let newElement = new Element();
         for (let i = 0; i < this.out_connections.length; i++) {
             newElement.out_connections.push(this.out_connections[i].clone(newElement));
@@ -281,4 +286,38 @@ class Element implements Interface.Element {
     }
 }
 
-export default Element;
+class Generator implements Interface.Element {
+    out_connections: Interface.Connection[];
+    frequency: number;
+    constructor(frequency: number, name?: string) {
+        this.frequency = frequency;
+        this.out_connections = [Factories.Connection.create({ name: name ? name : "", element: this })];
+    }
+
+    out(name?: string): Interface.Connection {
+        if (name) {
+            if (name !== this.out_connections[0].out.name) {
+                this.out_connections[0].out.name = name;
+            }
+        }
+        return this.out_connections[0];
+    }
+
+    clone(): Generator {
+        let ne = new Generator(this.frequency);
+        ne.out(this.out().out.name);
+        return ne;
+    }
+
+    isAllInConnected(): boolean {
+        if (this.out_connections[0].in === false) return false;
+        else return true;
+    }
+
+    isReady(): boolean {
+        return this.isAllInConnected()&&this.out_connections[0].out.name!==''
+    }
+}
+
+
+export {Element, Generator};

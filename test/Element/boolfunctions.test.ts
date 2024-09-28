@@ -39,8 +39,12 @@ describe('Check bool functions', () => {
         expect(element1.isAllSignalNotZ()).toEqual(true);
     });
 
-    test('isReady => true', () => {
+    test('isReady => true', () => {;
         expect(element1.isReady()).toEqual(true);
     });
 
+    test('isAllSignalNotZ => false', () => {
+        element1.genState([]);
+        expect(element1.isAllSignalNotZ()).toEqual(false);
+    });
 });

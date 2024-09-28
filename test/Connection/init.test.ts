@@ -11,7 +11,6 @@ describe('Check constructor', () => {
             {name:'A', element:new lle.Element()}, 
             {name:'B', element:new lle.Element()}
         );
-        console.log(connect);
         expect(connect.out.name).toEqual('A');
         expect(connect.in[0].name).toEqual('B');
     });
@@ -25,7 +24,6 @@ describe('Check constructor', () => {
                 {name:'D', element:new lle.Element()}
             ]
         );
-        console.log(connect);
         expect(connect.out.name).toEqual('A');
         expect(connect.in[0].name).toEqual('B');
     });

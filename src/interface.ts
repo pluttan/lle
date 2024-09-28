@@ -39,7 +39,7 @@ interface Element {
      * зависимости от массива.
      * Подробнее см. Типы:Сигналы.
      */
-    setParams(inName: string[], outName: string[], signals: Types.DSSSArray): Element;
+    setParams?(inName: string[], outName: string[], signals: Types.DSSSArray): Element;
     //----------------------------------- Element:setParams -----------------------------------//
 
 
@@ -54,7 +54,7 @@ interface Element {
      * @param elementOut Элемент, чьи выходы соединятся со входами
      * @param elementIn Элемент, чьи входы соединятся с выходами
      */
-    concat(elementOut: Element, elementIn: Element): Element;
+    concat?(elementOut: Element, elementIn: Element): Element;
     //----------------------------------- Element:concat -----------------------------------//
 
 
@@ -68,7 +68,7 @@ interface Element {
      * @param elementOut Элемент, чьи выходы соединятся со входами текущего
      * @returns connected element
      */
-    add(elementOut: Element): Element;
+    add?(elementOut: Element): Element;
     //----------------------------------- Element:add -----------------------------------//
 
 
@@ -79,7 +79,7 @@ interface Element {
      * @param connection Соединение, имеющее выход с другим(или тем же самым) элементом
      * @returns Общее соединение
      */
-    in(name: string, connection: Connection): (Connection | string);
+    in?(name: string, connection: Connection): (Connection | string);
     //----------------------------------- Element:in -----------------------------------//
 
 
@@ -89,7 +89,7 @@ interface Element {
      * @param name Название входа
      * @returns Соединение, если вход соединен с выходом или название входа, если не подключен
      */
-    in(name: string): (Connection | string);
+    in?(name: string): (Connection | string);
     //----------------------------------- Element:in -----------------------------------//
 
     //----------------------------------- Element:inIndex -----------------------------------//
@@ -98,7 +98,7 @@ interface Element {
      * @param name Название входа
      * @returns Индекс в массиве in_connections
      */
-    inIndex(name: string): number;
+    inIndex?(name: string): number;
     //----------------------------------- Element:inIndex -----------------------------------//
 
     //----------------------------------- Element:out -----------------------------------//
@@ -117,7 +117,7 @@ interface Element {
      * @param array Упрощенная/полная/стандартная форма записи
      * @returns Общая стандартная форма записи
      */
-    genState(array: Types.DSSSArray): Types.SignalArray[];
+    genState?(array: Types.DSSSArray): Types.SignalArray[];
     //--------------------------------- Element:genState --------------------------------//
 
     //--------------------------------- Element:clone --------------------------------//
@@ -143,7 +143,7 @@ interface Element {
      * * Проверяет не находится ли ни один сигнал в разрывном состоянии
      * @returns True не находится ни один сигнал в разрывном состоянии
      */
-    isAllSignalNotZ(): boolean;
+    isAllSignalNotZ?(): boolean;
     //--------------------------------- Element:isAllSignalNotZ --------------------------------//
 
 
@@ -160,7 +160,7 @@ interface Element {
     /**
      * * Соединения/названия сигналов входа
      */
-    in_connections: (Connection | string)[];
+    in_connections?: (Connection | string)[];
     //--------------------------------- Element:in_connections ---------------------------
 
 
@@ -176,7 +176,7 @@ interface Element {
     /**
      * * Массив состояний
      */
-    state: Types.SignalArray[];
+    state?: Types.SignalArray[];
     //--------------------------------- Element:state --------------------------------//
 }
 //=================================== interface Element ===================================//

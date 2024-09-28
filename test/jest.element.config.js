@@ -6,7 +6,7 @@ module.exports = {
         "src/controller/element.ts", 
     ],
     coverageDirectory: "test/coverage/element", 
-    coverageReporters: ["html"],
+    coverageReporters: ["html", "text"],
     
 
     rootDir: '../',

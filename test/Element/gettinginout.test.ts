@@ -36,4 +36,12 @@ describe('In and Out connections check', () => {
     test('connection out not found', () => {
         expect(element1.out('A2')).toEqual({});
     });
+
+    test('inIndex check', () => {
+        expect(element1.inIndex('A_2')).toEqual(0);
+    });
+
+    test('inIndex check not found', () => {
+        expect(element1.inIndex('A2')).toEqual(-1);
+    });
 });
