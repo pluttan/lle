@@ -17,6 +17,6 @@
       "@llev/*": ["src/view/*"], // Настройки путей
     }
   },
-  "include": ["src/**/*", "src/lle.js", "src/lle.ts"],
+  "include": ["src/**/*", "src/lle.js", "src/lle.ts", "examples/**/*"],
   "exclude": ["node_modules/", "**/__tests__/*, ", "lle.ts"]
 }

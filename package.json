@@ -60,6 +60,6 @@
   },
   "dependencies": {
     "ts-loader": "^9.5.1",
-    "typedoc-material-theme": "^1.1.0"
+    "typedoc-material-theme": "1.1.0"
   }
 }

@@ -1,6 +1,7 @@
 {
     "entryPoints": [
-        "./src/**/*.ts"
+        "./src/**/*.ts",
+        "./examples/**/*.ts"
     ],
     "out": "./docs/api",
     "readme": "docs/README.md",
@@ -9,5 +10,6 @@
     ],
     "exclude": ["./src/lle.ts"], 
     "themeColor": "#b4befe",
-    "excludeExternals": false
+    "excludeExternals": false,
+    "githubPages":false
 }
