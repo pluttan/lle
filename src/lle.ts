@@ -1,3 +1,4 @@
 import Connection from './controller/connection';
-import {Element, Generator} from "./controller/element";
-export { Connection, Element, Generator };
+import { Element, Generator } from "./controller/element";
+import ElementGraph from "./controller/elementGraph";
+export { Connection, Element, Generator, ElementGraph };

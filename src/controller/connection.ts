@@ -8,16 +8,15 @@ class Connection implements Interface.Connection {
     constructor(outSource: Types.Sources);
     constructor(outSource: Types.Sources, inSource: Types.Sources);
     constructor(outSource: Types.Sources, inSourceArray: Types.SourcesArray);
-    
-    constructor(outSource: Types.Sources, arg2?: any){
+
+    constructor(outSource: Types.Sources, arg2?: any) {
         this.in = false;
         this.out = outSource;
         if (arg2) {
             if (Array.isArray(arg2)) {
                 this.out = outSource;
                 this.in = arg2;
-            }
-            else {
+            } else {
                 this.out = outSource;
                 this.in = [arg2];
             }
@@ -26,7 +25,7 @@ class Connection implements Interface.Connection {
 
     inConnect(inSource: Types.Sources): Interface.Connection {
         if (Array.isArray(this.in)) {
-            this.in.push(inSource); 
+            this.in.push(inSource);
         } else {
             this.in = [inSource];
         }
@@ -41,14 +40,16 @@ class Connection implements Interface.Connection {
                     break;
                 }
             }
-            if (this.in.length == 0) {this.in = false;}
+            if (this.in.length == 0) {
+                this.in = false;
+            }
         }
         return this;
     }
 
     inConnects(inSourceArray: Types.SourcesArray): Interface.Connection {
         if (Array.isArray(this.in)) {
-            this.in.push(...inSourceArray); 
+            this.in.push(...inSourceArray);
         } else {
             this.in = inSourceArray;
         }
@@ -58,14 +59,14 @@ class Connection implements Interface.Connection {
     disConnects(inSourceArray: Types.SourcesArray): Interface.Connection {
         if (Array.isArray(this.in)) {
             for (let i = 0; i < inSourceArray.length; i++) {
-                this.disConnect(inSourceArray[i]); 
+                this.disConnect(inSourceArray[i]);
             }
         }
         return this;
     }
 
     isConnected(): boolean {
-        return Array.isArray(this.in) && this.in.length > 0; 
+        return Array.isArray(this.in) && this.in.length > 0;
     }
 
     lenInConnected(): number {
@@ -73,25 +74,24 @@ class Connection implements Interface.Connection {
     }
 
     clone(element: Interface.Element): Interface.Connection {
-        return new Connection({name:this.out.name, element:element});
+        return new Connection({name: this.out.name, element: element});
     }
 
-    getArrayInString(): string[]{
+    getArrayInString(): string[] {
         let arr: string[] = [];
         if (Array.isArray(this.in)) {
             for (let i = 0; i < this.in.length; i++) {
                 arr.push(this.in[i].name);
-            }  
+            }
         }
-        return arr
+        return arr;
     }
 
-    findInString(element: Interface.Element): string{
+    findInString(element: Interface.Element): string {
         if (Array.isArray(this.in)) {
             for (let i = 0; i < this.in.length; i++) {
-                if (this.in[i].element === element) 
-                    return this.in[i].name;
-            }  
+                if (this.in[i].element === element) return this.in[i].name;
+            }
         }
         return '';
     }

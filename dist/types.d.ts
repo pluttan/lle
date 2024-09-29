@@ -1,4 +1,4 @@
-import { Element } from './interface';
+import { Element, Connection } from './interface';
 /**
  * * Тип сигнала
  * 1 - сигнал "1"
@@ -109,5 +109,10 @@ type Sources = {
  * * Массив входов/выходов для соединения
  */
 type SourcesArray = Sources[];
-export { Signal, SignalArray, StateSignal, StateSignalArray, StringSignalArray, DetailSignal, DetailSignalArray, DSSSArray, Sources, SourcesArray };
+type ElementGraphNode = {
+    element: Element;
+    connection: Connection[];
+    out: ElementGraphNode[];
+};
+export { Signal, SignalArray, StateSignal, StateSignalArray, StringSignalArray, DetailSignal, DetailSignalArray, DSSSArray, Sources, SourcesArray, ElementGraphNode };
 //# sourceMappingURL=types.d.ts.map

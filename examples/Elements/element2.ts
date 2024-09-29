@@ -1,7 +1,7 @@
-import * as lle from "../../dist/lle";
-import element1 from "./element1";
+import * as lle from '../../dist/lle';
+import element1 from './element1';
 
-let element2:lle.Element = new lle.Element(
+let element2: lle.Element = new lle.Element(
     ['A_7', 'A_6', 'A_5', 'A_4', 'A_3', 'A_2', 'A_1', 'A_0', 'E_n'],
     ['F_2', 'F_1', 'F_0'],
     [
@@ -14,16 +14,15 @@ let element2:lle.Element = new lle.Element(
         {in: '001000001', out: '101'},
         {in: '010000001', out: '110'},
         {in: '100000001', out: '111'},
-        {name: 'else', state: 'x', out: ''},
+        {name: 'else', state: 'x', out: ''}
     ]
 );
 
 element1.add(element2);
 
+console.log(element1.in_connections);
+console.log(element1.out_connections);
+console.log(element2.in_connections);
+console.log(element2.out_connections);
 
-console.log(element1.in_connections)
-console.log(element1.out_connections)
-console.log(element2.in_connections)
-console.log(element2.out_connections)
-
-export default element2
+export default element2;

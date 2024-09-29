@@ -1,4 +1,5 @@
 import Connection from './controller/connection';
-import Element from "./controller/element";
-export { Connection, Element };
+import { Element, Generator } from "./controller/element";
+import ElementGraph from "./controller/elementGraph";
+export { Connection, Element, Generator, ElementGraph };
 //# sourceMappingURL=lle.d.ts.map

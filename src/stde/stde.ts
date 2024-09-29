@@ -1,4 +1,2 @@
-const stde = {
-    
-};
+const stde = {};
 export default stde;

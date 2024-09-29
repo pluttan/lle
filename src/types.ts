@@ -1,5 +1,4 @@
-import {Element} from './interface';
-
+import {Element, Connection} from './interface';
 //=================================== Signals ===================================//
 //----------------------------------- Signal -----------------------------------//
 /**
@@ -145,6 +144,14 @@ type SourcesArray = Sources[];
 //=================================== Connections ===================================//
 
 
+//=================================== ElementTree ===================================//
+type ElementGraphNode = {
+    element: Element;
+    connection: Connection[];
+    out: ElementGraphNode[]; 
+}
+//=================================== ElementTree ===================================//
+
 export {
     Signal, 
     SignalArray, 
@@ -155,5 +162,6 @@ export {
     DetailSignalArray, 
     DSSSArray,
     Sources,
-    SourcesArray
+    SourcesArray,
+    ElementGraphNode
 };
