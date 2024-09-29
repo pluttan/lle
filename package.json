@@ -24,7 +24,7 @@
     "tslint": "tslint -p tslint -p tsconfig.json",
     "codestyle": "npm run prettier && npm run tslint",
     "docsify": "docsify serve ./docs",
-    "typedoc": "typedoc --out ./docs/api ./src --mode file --readme docs/README.md",
+    "typedoc": "typedoc",
     "docs": "npm run typedoc && npm run docsify"
   },
   "husky": {
@@ -35,6 +35,7 @@
   "author": "pluttan",
   "license": "MIT",
   "devDependencies": {
+    "@types/babel__traverse": "7.0.6",
     "@types/jest": "^24.9.1",
     "@types/node": "^12.7.5",
     "docsify-cli": "^4.3.0",
@@ -50,11 +51,15 @@
     "ts-node": "^10.8.1",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
-    "typedoc": "^0.15.0",
-    "typescript": "^4.6.3",
+    "typedoc": "^0.26.7",
+    "typescript": "5.5.x",
     "webpack-cli": "^5.1.4"
   },
+  "overrides": {
+    "@types/babel__traverse": "7.0.6"
+  },
   "dependencies": {
-    "ts-loader": "^9.5.1"
+    "ts-loader": "^9.5.1",
+    "typedoc-material-theme": "^1.1.0"
   }
 }

@@ -1,0 +1,13 @@
+{
+    "entryPoints": [
+        "./src/**/*.ts"
+    ],
+    "out": "./docs/api",
+    "readme": "docs/README.md",
+    "plugin": [
+        "typedoc-material-theme"
+    ],
+    "exclude": ["./src/lle.ts"], 
+    "themeColor": "#b4befe",
+    "excludeExternals": false
+}
