@@ -1,9 +1,9 @@
+import * as lle from '../../src/lle';
 describe('Check function inConnect', () => {
-    var lle = require('../../src/lle');
 
     test('Check disconnection', () => {
-        let elem = new lle.Element();
-        let connect = new lle.Connection(
+        const elem = new lle.Element();
+        const connect = new lle.Connection(
             {name: 'A', element: new lle.Element()},
             {name: 'A', element: elem}
         );
@@ -12,8 +12,8 @@ describe('Check function inConnect', () => {
     });
 
     test('Check disconnection array', () => {
-        let elem = new lle.Element();
-        let connect = new lle.Connection({name: 'A', element: new lle.Element()}, [
+        const elem = new lle.Element();
+        const connect = new lle.Connection({name: 'A', element: new lle.Element()}, [
             {name: 'A', element: elem},
             {name: 'B', element: elem},
             {name: 'C', element: elem}

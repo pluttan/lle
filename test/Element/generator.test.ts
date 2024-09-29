@@ -1,6 +1,6 @@
+import * as lle from '../../src/lle';
 describe('Check generator element', () => {
-    var lle = require('../../src/lle');
-    let gen1 = new lle.Generator(100, 'g_1');
+    const gen1 = new lle.Generator('g_1', 100);
 
     test('check constructor', () => {
         expect(gen1.out_connections).toEqual([{in: false, out: {name: 'g_1', element: gen1}}]);
@@ -37,7 +37,7 @@ describe('Check generator element', () => {
     });
 
     test('check clone', () => {
-        let gen2 = gen1.clone();
+        const gen2 = gen1.clone();
         expect(gen2.out_connections).toEqual([{in: false, out: {name: 'g_2', element: gen2}}]);
     });
 
@@ -50,7 +50,7 @@ describe('Check generator element', () => {
     });
 
     test('check isAllInConnected => true', () => {
-        let elem = new lle.Element(['A'], ['B'], [1, 0]);
+        const elem = new lle.Element(['A'], ['B'], ['1', '0']);
         elem.in('A', gen1.out());
         expect(gen1.isAllInConnected()).toEqual(true);
     });

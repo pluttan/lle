@@ -1,13 +1,13 @@
+import * as lle from '../../src/lle';
 describe('Check getState function', () => {
-    var lle = require('../../src/lle');
-    let element1 = new lle.Element(
+    const element1 = new lle.Element(
         ['A_1', 'A_0', 'E_n'],
         ['F_0', 'F_1', 'F_2', 'F_3'],
         [{name: 'E_n', state: 0, out: '0000'}]
     );
 
     test('check stateSignal notation', () => {
-        let elem = element1.clone();
+        const elem = element1.clone();
         elem.genState([{name: 'E_n', state: 0, out: '0000'}]);
         const expectedState = [
             [0, 0, 0, 0],
@@ -23,7 +23,7 @@ describe('Check getState function', () => {
     });
 
     test('check stateSignal nested notation', () => {
-        let elem = element1.clone();
+        const elem = element1.clone();
         elem.genState([
             {
                 name: 'E_n',
@@ -45,7 +45,7 @@ describe('Check getState function', () => {
     });
 
     test('check stateSignal second nested notation', () => {
-        let elem = element1.clone();
+        const elem = element1.clone();
         elem.genState([
             {
                 name: 'E_n',
@@ -71,7 +71,7 @@ describe('Check getState function', () => {
     });
 
     test('check stateSignal notation with symv', () => {
-        let elem = element1.clone();
+        const elem = element1.clone();
         elem.genState([
             {
                 name: 'E_n',
@@ -93,7 +93,7 @@ describe('Check getState function', () => {
     });
 
     test('check detailState notation', () => {
-        let elem = element1.clone();
+        const elem = element1.clone();
         elem.genState([
             {
                 in: '110',
@@ -114,7 +114,7 @@ describe('Check getState function', () => {
     });
 
     test('check signal notation', () => {
-        let elem = element1.clone();
+        const elem = element1.clone();
         elem.genState(['0000', '0001', '0000', '0010', '0000', '0100', '0000', '1000']);
         const expectedState = ['0000', '0001', '0000', '0010', '0000', '0100', '0000', '1000'];
         expect(elem.state).toEqual(expectedState);

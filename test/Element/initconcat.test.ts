@@ -1,6 +1,6 @@
+import * as lle from '../../src/lle';
 describe('Element initialization by two other elements', () => {
-    var lle = require('../../src/lle');
-    let element1 = new lle.Element(
+    const element1 = new lle.Element(
         ['A_2', 'A_1', 'A_0', 'E_n'],
         ['F_0', 'F_1', 'F_2', 'F_3', 'F_4', 'F_5', 'F_6', 'F_7'],
         [
@@ -15,7 +15,7 @@ describe('Element initialization by two other elements', () => {
             '00000001'
         ]
     );
-    var element2 = new lle.Element(
+    const element2 = new lle.Element(
         ['A_7', 'A_6', 'A_5', 'A_4', 'A_3', 'A_2', 'A_1', 'A_0', 'E_n'],
         ['F_2', 'F_1', 'F_0'],
         [
@@ -32,14 +32,14 @@ describe('Element initialization by two other elements', () => {
         ]
     );
 
-    let element1c = element1.clone();
-    let element2c = element2.clone();
+    const element1c = element1.clone();
+    const element2c = element2.clone();
     element1c.in_connections.pop();
     element1c.in_connections.pop();
 
-    let element3 = new lle.Element(element1, element2);
-    let element4 = new lle.Element(element2c, element1c);
-    let element5 = new lle.Element(element1c, element1);
+    const element3 = new lle.Element(element1, element2);
+    const element4 = new lle.Element(element2c, element1c);
+    new lle.Element(element1c, element1);
 
     test('element3 in_connections should match expected values', () => {
         expect(element3.in_connections).toEqual(['A_2', 'A_1', 'A_0', 'E_n', 'E_n']);

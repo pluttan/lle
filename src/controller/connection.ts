@@ -1,15 +1,32 @@
 import * as Interface from '../interface';
 import * as Types from '../types';
 
+/**
+ *
+ */
 class Connection implements Interface.Connection {
     in: Types.SourcesArray | false;
     readonly out: Types.Sources;
 
+    /**
+     *
+     */
     constructor(outSource: Types.Sources);
+    /**
+     *
+     */
     constructor(outSource: Types.Sources, inSource: Types.Sources);
+    /**
+     *
+     */
     constructor(outSource: Types.Sources, inSourceArray: Types.SourcesArray);
 
-    constructor(outSource: Types.Sources, arg2?: any) {
+    /**
+     *
+     * @param outSource
+     * @param arg2
+     */
+    constructor(outSource: Types.Sources, arg2?: Types.Sources | Types.SourcesArray) {
         this.in = false;
         this.out = outSource;
         if (arg2) {
@@ -23,6 +40,10 @@ class Connection implements Interface.Connection {
         }
     }
 
+    /**
+     *
+     * @param inSource
+     */
     inConnect(inSource: Types.Sources): Interface.Connection {
         if (Array.isArray(this.in)) {
             this.in.push(inSource);
@@ -32,6 +53,10 @@ class Connection implements Interface.Connection {
         return this;
     }
 
+    /**
+     *
+     * @param inSource
+     */
     disConnect(inSource: Types.Sources): Interface.Connection {
         if (Array.isArray(this.in)) {
             for (let i = 0; i < this.in.length; i++) {
@@ -40,13 +65,17 @@ class Connection implements Interface.Connection {
                     break;
                 }
             }
-            if (this.in.length == 0) {
+            if (this.in.length === 0) {
                 this.in = false;
             }
         }
         return this;
     }
 
+    /**
+     *
+     * @param inSourceArray
+     */
     inConnects(inSourceArray: Types.SourcesArray): Interface.Connection {
         if (Array.isArray(this.in)) {
             this.in.push(...inSourceArray);
@@ -56,6 +85,10 @@ class Connection implements Interface.Connection {
         return this;
     }
 
+    /**
+     *
+     * @param inSourceArray
+     */
     disConnects(inSourceArray: Types.SourcesArray): Interface.Connection {
         if (Array.isArray(this.in)) {
             for (let i = 0; i < inSourceArray.length; i++) {
@@ -65,20 +98,33 @@ class Connection implements Interface.Connection {
         return this;
     }
 
+    /**
+     *
+     */
     isConnected(): boolean {
         return Array.isArray(this.in) && this.in.length > 0;
     }
 
+    /**
+     *
+     */
     lenInConnected(): number {
         return Array.isArray(this.in) ? this.in.length : 0;
     }
 
+    /**
+     *
+     * @param element
+     */
     clone(element: Interface.Element): Interface.Connection {
         return new Connection({name: this.out.name, element: element});
     }
 
+    /**
+     *
+     */
     getArrayInString(): string[] {
-        let arr: string[] = [];
+        const arr: string[] = [];
         if (Array.isArray(this.in)) {
             for (let i = 0; i < this.in.length; i++) {
                 arr.push(this.in[i].name);
@@ -87,10 +133,16 @@ class Connection implements Interface.Connection {
         return arr;
     }
 
+    /**
+     *
+     * @param element
+     */
     findInString(element: Interface.Element): string {
         if (Array.isArray(this.in)) {
             for (let i = 0; i < this.in.length; i++) {
-                if (this.in[i].element === element) return this.in[i].name;
+                if (this.in[i].element === element) {
+                    return this.in[i].name;
+                }
             }
         }
         return '';

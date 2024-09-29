@@ -1,32 +1,52 @@
 import * as Interface from '../interface';
 import * as Types from '../types';
-import Factories from '../factories';
 
+/**
+ *
+ */
 class ElementGraph implements Interface.ElementGraph {
     tree: Types.ElementGraphNode[];
 
+    /**
+     *
+     * @param pointElement
+     */
     constructor(pointElement: Interface.Element) {
         this.tree = [];
         this.genGraph(pointElement);
     }
+    /**
+     *
+     * @param pointElement
+     */
     genGraph(pointElement: Interface.Element): void {
-        let set = new Set<Interface.Element>();
+        const set = new Set<Interface.Element>();
         this.findGenerators(pointElement, set);
-        let arregn: Types.ElementGraphNode[] = [];
+        const arregn: Types.ElementGraphNode[] = [];
         for (let i = 0; i < this.tree.length; i++) {
             this.genGraphNode(this.tree[i], arregn);
         }
     }
 
+    /**
+     *
+     * @param pointElement
+     * @param set
+     */
     private findGenerators(
         pointElement: Interface.Element,
         set: Set<Interface.Element>
     ): Types.ElementGraphNode[] {
         set.add(pointElement);
-        if ('in_connections' in (pointElement as object)) {
-            for (let i = 0; i < (pointElement as any).in_connections.length; i++) {
-                let elem = (pointElement as any).in_connections[i].out.element;
-                if (!set.has(elem)) this.findGenerators(elem, set);
+        if (pointElement.in_connections !== undefined) {
+            for (let i = 0; i < pointElement.in_connections.length; i++) {
+                if (typeof pointElement.in_connections[i] !== 'string') {
+                    const elem = (pointElement.in_connections[i] as Interface.Connection).out
+                        .element;
+                    if (!set.has(elem)) {
+                        this.findGenerators(elem, set);
+                    }
+                }
             }
             for (let i = 0; i < pointElement.out_connections.length; i++) {
                 if (pointElement.out_connections[i].in) {
@@ -35,9 +55,11 @@ class ElementGraph implements Interface.ElementGraph {
                         j < (pointElement.out_connections[i].in as Types.SourcesArray).length;
                         j++
                     ) {
-                        let elem = (pointElement.out_connections[i].in as Types.SourcesArray)[j]
+                        const elem = (pointElement.out_connections[i].in as Types.SourcesArray)[j]
                             .element;
-                        if (!set.has(elem)) this.findGenerators(elem, set);
+                        if (!set.has(elem)) {
+                            this.findGenerators(elem, set);
+                        }
                     }
                 }
             }
@@ -47,8 +69,13 @@ class ElementGraph implements Interface.ElementGraph {
         return this.tree;
     }
 
+    /**
+     *
+     * @param node
+     * @param arregn
+     */
     private genGraphNode(node: Types.ElementGraphNode, arregn: Types.ElementGraphNode[]) {
-        let pointElement = node.element;
+        const pointElement = node.element;
         for (let j = 0; j < pointElement.out_connections.length; j++) {
             if (pointElement.out_connections[j].in) {
                 for (
@@ -56,11 +83,11 @@ class ElementGraph implements Interface.ElementGraph {
                     k < (pointElement.out_connections[j].in as Types.SourcesArray).length;
                     k++
                 ) {
-                    let elem = (pointElement.out_connections[j].in as Types.SourcesArray)[k]
+                    const elem = (pointElement.out_connections[j].in as Types.SourcesArray)[k]
                         .element;
-                    let egn = arregn.find((el) => el.element === elem);
+                    const egn = arregn.find((el) => el.element === elem);
                     if (!egn) {
-                        let newNode = {
+                        const newNode = {
                             element: elem,
                             connection: [pointElement.out_connections[j]],
                             out: []
@@ -77,69 +104,112 @@ class ElementGraph implements Interface.ElementGraph {
         }
     }
 
+    /**
+     *
+     * @param pointElement
+     */
     findElement(pointElement: Interface.Element): Types.ElementGraphNode | false {
         for (let i = 0; i < this.tree.length; i++) {
-            let e = this.findElementNode(pointElement, this.tree[i]);
-            if (e) return e;
+            const e = this.findElementNode(pointElement, this.tree[i]);
+            if (e) {
+                return e;
+            }
         }
         return false;
     }
 
+    /**
+     *
+     * @param pointElement
+     * @param firstNode
+     */
     private findElementNode(
         pointElement: Interface.Element,
         firstNode: Types.ElementGraphNode
     ): Types.ElementGraphNode | false {
-        if (pointElement === firstNode.element) return firstNode;
+        if (pointElement === firstNode.element) {
+            return firstNode;
+        }
         for (let j = 0; j < firstNode.out.length; j++) {
-            let e = this.findElementNode(pointElement, firstNode.out[j]);
-            if (e) return e;
+            const e = this.findElementNode(pointElement, firstNode.out[j]);
+            if (e) {
+                return e;
+            }
         }
         return false;
     }
 
+    /**
+     *
+     */
     getOutputs(): Interface.Connection[] {
         return [];
     }
 
+    /**
+     *
+     */
     getInputs(): Interface.Connection[] {
         return [];
     }
+    /**
+     *
+     */
     getGenerators(): Interface.Element[] {
         return [];
     }
+    /**
+     *
+     */
     getAllElementsDFS(): Interface.Element[] {
-        let nodes = this.getSetNodeDFS();
-        let ret: Interface.Element[] = [];
+        const nodes = this.getSetNodeDFS();
+        const ret: Interface.Element[] = [];
         for (let i = 0; i < nodes.length; i++) {
             ret.push(nodes[i].element);
         }
         return ret;
     }
+    /**
+     *
+     */
     getAllElementsBFS(): Interface.Element[] {
-        let nodes = this.getAllNodeBFS();
-        let ret: Interface.Element[] = [];
+        const nodes = this.getAllNodeBFS();
+        const ret: Interface.Element[] = [];
         for (let i = 0; i < nodes.length; i++) {
-            if (!ret.find((el) => el === nodes[i].element)) ret.push(nodes[i].element);
+            if (!ret.find((el) => el === nodes[i].element)) {
+                ret.push(nodes[i].element);
+            }
         }
         return ret;
     }
+    /**
+     *
+     */
     getAllNodeDFS(): Types.ElementGraphNode[] {
-        let ret: Types.ElementGraphNode[] = [];
+        const ret: Types.ElementGraphNode[] = [];
         for (let i = 0; i < this.tree.length; i++) {
             this.DFSrec(this.tree[i], ret);
         }
         return ret;
     }
+    /**
+     *
+     * @param node
+     * @param ret
+     */
     private DFSrec(node: Types.ElementGraphNode, ret: Types.ElementGraphNode[]): void {
         ret.push(node);
         for (let j = 0; j < node.out.length; j++) {
             this.DFSrec(node.out[j], ret);
         }
     }
+    /**
+     *
+     */
     getAllNodeBFS(): Types.ElementGraphNode[] {
-        let ret = [...this.tree];
-        let allel = this.getSetNodeDFS();
-        let conn: Interface.Connection[] = [];
+        const ret = [...this.tree];
+        const allel = this.getSetNodeDFS();
+        const conn: Interface.Connection[] = [];
         while (allel.length > 0) {
             for (let i = 0; i < allel.length; i++) {
                 if (!ret.find((el) => el === allel[i])) {
@@ -165,11 +235,17 @@ class ElementGraph implements Interface.ElementGraph {
         return ret;
     }
 
+    /**
+     *
+     */
     getSetNodeDFS(): Types.ElementGraphNode[] {
-        let arr = this.getAllNodeDFS();
+        const arr = this.getAllNodeDFS();
         return arr.filter((value, index, self) => self.indexOf(value) === index);
     }
 
+    /**
+     *
+     */
     getSetNodeBFS(): Types.ElementGraphNode[] {
         return [];
     }

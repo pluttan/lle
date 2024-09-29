@@ -1,7 +1,7 @@
+import * as lle from '../../src/lle';
 describe('Check add function', () => {
-    var lle = require('../../src/lle');
 
-    let element1 = new lle.Element(
+    const element1 = new lle.Element(
         ['A_2', 'A_1', 'A_0', 'E_n'],
         ['F_0', 'F_1', 'F_2', 'F_3', 'F_4', 'F_5', 'F_6', 'F_7'],
         [
@@ -16,7 +16,7 @@ describe('Check add function', () => {
             '00000001'
         ]
     );
-    let element3 = new lle.Element(
+    const element3 = new lle.Element(
         ['A_7', 'A_6', 'A_5', 'A_4', 'A_3', 'A_2', 'A_1', 'A_0', 'E_n'],
         ['F_2', 'F_1', 'F_0'],
         [
@@ -34,24 +34,24 @@ describe('Check add function', () => {
     );
 
     test('add element in connections when in<out', () => {
-        let element2 = element1.clone();
+        const element2 = element1.clone();
         element1.add(element2);
 
         const expectedInConnections = [
             {
-                in: element1.in_connections[0].in,
+                in: (element1.in_connections[0] as lle.Connection).in,
                 out: element2.out_connections[0].out
             },
             {
-                in: element1.in_connections[1].in,
+                in: (element1.in_connections[1] as lle.Connection).in,
                 out: element2.out_connections[1].out
             },
             {
-                in: element1.in_connections[2].in,
+                in: (element1.in_connections[2] as lle.Connection).in,
                 out: element2.out_connections[2].out
             },
             {
-                in: element1.in_connections[3].in,
+                in: (element1.in_connections[3] as lle.Connection).in,
                 out: element2.out_connections[3].out
             }
         ];
@@ -72,19 +72,19 @@ describe('Check add function', () => {
     });
 
     test('add element in connections when in>out', () => {
-        let element2 = element3.clone();
+        const element2 = element3.clone();
         element3.add(element2);
         const expectedInConnections = [
             {
-                in: element3.in_connections[0].in,
+                in: (element3.in_connections[0] as lle.Connection).in,
                 out: element2.out_connections[0].out
             },
             {
-                in: element3.in_connections[1].in,
+                in: (element3.in_connections[1] as lle.Connection).in,
                 out: element2.out_connections[1].out
             },
             {
-                in: element3.in_connections[2].in,
+                in: (element3.in_connections[2] as lle.Connection).in,
                 out: element2.out_connections[2].out
             },
             'A_4',

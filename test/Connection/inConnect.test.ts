@@ -1,8 +1,8 @@
+import * as lle from '../../src/lle';
 describe('Check function inConnect', () => {
-    var lle = require('../../src/lle');
 
     test('Check connection without in', () => {
-        let connect = new lle.Connection({
+        const connect = new lle.Connection({
             name: 'A',
             element: new lle.Element()
         });
@@ -11,7 +11,7 @@ describe('Check function inConnect', () => {
     });
 
     test('Check connection with in', () => {
-        let connect = new lle.Connection(
+        const connect = new lle.Connection(
             {name: 'A', element: new lle.Element()},
             {name: 'B', element: new lle.Element()}
         );
@@ -20,7 +20,7 @@ describe('Check function inConnect', () => {
         expect(connect.in[1].name).toEqual('A');
     });
     test('Check connection without in with array', () => {
-        let connect = new lle.Connection({
+        const connect = new lle.Connection({
             name: 'A',
             element: new lle.Element()
         });
@@ -33,7 +33,7 @@ describe('Check function inConnect', () => {
     });
 
     test('Check connection with in with array', () => {
-        let connect = new lle.Connection(
+        const connect = new lle.Connection(
             {name: 'A', element: new lle.Element()},
             {name: 'B', element: new lle.Element()}
         );

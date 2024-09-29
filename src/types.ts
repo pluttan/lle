@@ -8,7 +8,7 @@ import {Element, Connection} from './interface';
  * "x" - сигнал "x" (неопределенный)
  * "z" - сигнал "z" (обрыв)
  */
-type Signal = 1 | 0 | "x" | "z";
+type Signal = 1 | 0 | 'x' | 'z';
 //----------------------------------- Signal -----------------------------------//
 
 
@@ -38,24 +38,24 @@ type StringSignalArray = (SignalArray|string);
  * `signal`: сигнал состояния (тип `Signal`)
  * `SignalArray`: массив сигналов, описывающий выходные сигналы
  * `StateArray`: объединение состояний элементов
- * 
+ *
  * Пример:
- * 
- * Состояние элемента: если вход "E_n" имеет сигнал 0, то все выходы элемента 
+ *
+ * Состояние элемента: если вход "E_n" имеет сигнал 0, то все выходы элемента
  * будут {0, 0, 0, 0}
  * const stateArray1: StateArray = ["E_n", 0, [0, 0, 0, 0]];
- * 
- * Состояние "else": если сигнал не указан явно, то выходы будут {1, 0, 1, 0}, 
+ *
+ * Состояние "else": если сигнал не указан явно, то выходы будут {1, 0, 1, 0},
  * если текущий сигнал "x"
  * const stateArray2: StateArray = ["else", "x", [1, 0, 1, 0]];
- * 
+ *
  * Состояние "else": если сигнал не указан явно, то выходы будут {0, 0, 0, 0}
  * const stateArray2: StateArray = ["else", "0", [1, 0, 1, 0]];
- * 
- * Состояние "control" с сигналом 1 и вложенное состояние "enable" с сигналом 0, 
+ *
+ * Состояние "control" с сигналом 1 и вложенное состояние "enable" с сигналом 0,
  * результатом которого будет {1, 1, 1, 0}
  * const nestedStateArray: StateArray = ["control", 1, ["enable", 0, [1, 1, 1, 0]]];
- * 
+ *
  */
 type StateSignal = {name:string, state:Signal, out:StringSignalArray|StateSignal};
 //----------------------------------- StateArray -----------------------------------//
@@ -67,12 +67,9 @@ type StateSignal = {name:string, state:Signal, out:StringSignalArray|StateSignal
  * Используется при описании всех сигналов элемента
  * Объеденияет в себе стандартный способ задания элементов и упрощенный
  * Пример:
- * 
- * const stateSignalArray1: StateSignalArray = [
- *    [1, 0, 1, "z"],   
- *    ["E_n", 0, [0, 0, 0, 0]], 
- *    ["else", "x", [1, 1, 0, 0]] 
- * ];
+ *`
+ * const stateSignalArray1: StateSignalArray = [[1, 0, 1, "z"], ["E_n", 0, [0, 0, 0, 0]],["else", "x", [1, 1, 0, 0]]];
+ *`
  */
 type StateSignalArray = (StringSignalArray|StateSignal)[];
 //----------------------------------- StateSignalArray -----------------------------------//
@@ -82,8 +79,8 @@ type StateSignalArray = (StringSignalArray|StateSignal)[];
 /**
  * ! Детальный способ задания сигналов элементов
  * * Массив сигналов входа и выхода
- * Сигнал входа в стандартном способе отсутствует, так как считается, что сигналы 
- * выхода просто задаются по порядку, но это не всегда удобно, поэтому был создан 
+ * Сигнал входа в стандартном способе отсутствует, так как считается, что сигналы
+ * выхода просто задаются по порядку, но это не всегда удобно, поэтому был создан
  * детальный способ создания с сигналами и входа и выхода
  */
 type DetailSignal = {in:StringSignalArray, out:StringSignalArray};
@@ -95,10 +92,10 @@ type DetailSignal = {in:StringSignalArray, out:StringSignalArray};
  * * Массив детальных сигналов
  * Пример:
  * const DetailSignalArray1: DetailSignalArray = [
- *  [[0, 0],   [0, 0, 1]], 
- *  [[0, 1],   [0, 1, 0]], 
- *  [[1, 0],   [1, 0, 0]], 
- *  [[1, 1],   [0, 0, 0]]
+ * [[0, 0],   [0, 0, 1]],
+ * [[0, 1],   [0, 1, 0]],
+ * [[1, 0],   [1, 0, 0]],
+ * [[1, 1],   [0, 0, 0]]
  * ];
  */
 type DetailSignalArray = DetailSignal[];
@@ -111,12 +108,12 @@ type DetailSignalArray = DetailSignal[];
  * Используется при описании всех сигналов элемента
  * Объеденияет в себе детальный, стандартный и упрощенный способ задания сигналов элементов
  * Пример:
- * 
+ *
  * const DSSSArray1: DSSSArray = [
- *    [1, 0, 1, "z"],   // стандартный способ
- *    ["E_n", 0, [0, 0, 0, 0]], // упрощенный способ
- *    [[1, 1, 0],[0, 1, 0, 0]], // детальный способ
- *    ["else", "x", [1, 1, 0, 0]]  // упрощенный способ
+ * [1, 0, 1, "z"],   // стандартный способ
+ * ["E_n", 0, [0, 0, 0, 0]], // упрощенный способ
+ * [[1, 1, 0],[0, 1, 0, 0]], // детальный способ
+ * ["else", "x", [1, 1, 0, 0]]  // упрощенный способ
  * ];
  */
 type DSSSArray = (DetailSignal|StringSignalArray|StateSignal)[];
@@ -148,18 +145,18 @@ type SourcesArray = Sources[];
 type ElementGraphNode = {
     element: Element;
     connection: Connection[];
-    out: ElementGraphNode[]; 
+    out: ElementGraphNode[];
 }
 //=================================== ElementTree ===================================//
 
 export {
-    Signal, 
-    SignalArray, 
-    StateSignal, 
-    StateSignalArray, 
+    Signal,
+    SignalArray,
+    StateSignal,
+    StateSignalArray,
     StringSignalArray,
-    DetailSignal, 
-    DetailSignalArray, 
+    DetailSignal,
+    DetailSignalArray,
     DSSSArray,
     Sources,
     SourcesArray,

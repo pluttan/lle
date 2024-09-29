@@ -1,8 +1,8 @@
+import * as lle from '../../src/lle';
 describe('Check constructor', () => {
-    var lle = require('../../src/lle');
 
     test('Check constructor with out', () => {
-        let connect = new lle.Connection({
+        const connect = new lle.Connection({
             name: 'A',
             element: new lle.Element()
         });
@@ -10,7 +10,7 @@ describe('Check constructor', () => {
     });
 
     test('Check constructor with in', () => {
-        let connect = new lle.Connection(
+        const connect = new lle.Connection(
             {name: 'A', element: new lle.Element()},
             {name: 'B', element: new lle.Element()}
         );
@@ -19,7 +19,7 @@ describe('Check constructor', () => {
     });
 
     test('Check constructor with Array in', () => {
-        let connect = new lle.Connection({name: 'A', element: new lle.Element()}, [
+        const connect = new lle.Connection({name: 'A', element: new lle.Element()}, [
             {name: 'B', element: new lle.Element()},
             {name: 'C', element: new lle.Element()},
             {name: 'D', element: new lle.Element()}

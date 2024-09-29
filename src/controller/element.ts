@@ -2,19 +2,52 @@ import * as Interface from '../interface';
 import * as Types from '../types';
 import Factories from '../factories';
 
+/**
+ *
+ */
 class Element implements Interface.Element {
     name: string;
     in_connections: (Interface.Connection | string)[];
     out_connections: Interface.Connection[];
     state: Types.SignalArray[];
 
+    /**
+     *
+     */
     constructor();
+    /**
+     *
+     */
     constructor(name: string);
+    /**
+     *
+     */
     constructor(inName: string[], outName: string[], signals: Types.DSSSArray);
+    /**
+     *
+     */
     constructor(name: string, inName: string[], outName: string[], signals: Types.DSSSArray);
+    /**
+     *
+     */
     constructor(elementOut: Element, elementIn: Element);
+    /**
+     *
+     */
     constructor(name: string, elementOut: Element, elementIn: Element);
-    constructor(arg1?: any, arg2?: any, arg3?: any, signals?: Types.DSSSArray) {
+    /**
+     *
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param signals
+     */
+    constructor(
+        arg1?: string | string[] | Element,
+        arg2?: string[] | Element,
+        arg3?: Types.DSSSArray | Element | string[],
+        signals?: Types.DSSSArray
+    ) {
         this.in_connections = [];
         this.out_connections = [];
         this.state = [];
@@ -25,7 +58,7 @@ class Element implements Interface.Element {
                 this.concat(arg2, arg3);
             }
             if (arg2 instanceof Array && arg3 instanceof Array && signals instanceof Array) {
-                this.setParams(arg2, arg3, signals);
+                this.setParams(arg2, arg3 as string[], signals);
             }
         } else {
             if (arg1 instanceof Element && arg2 instanceof Element) {
@@ -37,6 +70,12 @@ class Element implements Interface.Element {
         }
     }
 
+    /**
+     *
+     * @param inName
+     * @param outName
+     * @param signals
+     */
     setParams(inName: string[], outName: string[], signals: Types.DSSSArray): Element {
         for (let i = 0; i < outName.length; i++) {
             this.out_connections.push(
@@ -44,13 +83,18 @@ class Element implements Interface.Element {
             );
         }
         this.in_connections = inName;
-        // this.state = this.genState(signals);
+        this.state = this.genState(signals);
         return this;
     }
 
+    /**
+     *
+     * @param elementOut
+     * @param elementIn
+     */
     concat(elementOut: Element, elementIn: Element): Interface.Element {
-        let elementOutn = elementOut.clone();
-        let elementInn = elementIn.clone();
+        const elementOutn = elementOut.clone();
+        const elementInn = elementIn.clone();
         if (elementOutn.out_connections.length < elementInn.in_connections.length) {
             for (let i = 0; i < elementOutn.out_connections.length; i++) {
                 elementInn.in(
@@ -106,9 +150,13 @@ class Element implements Interface.Element {
         return this;
     }
 
+    /**
+     *
+     * @param elementOut
+     */
     add(elementOut: Element): Element {
         if (this.in_connections.length < elementOut.out_connections.length) {
-            let len = this.in_connections.length;
+            const len = this.in_connections.length;
             for (let i = 0; i < len; i++) {
                 this.in(this.in_connections[i] as string, elementOut.out_connections[i]);
             }
@@ -120,8 +168,19 @@ class Element implements Interface.Element {
         return this;
     }
 
+    /**
+     *
+     */
     in(name: string, connection: Interface.Connection): Interface.Connection | string;
+    /**
+     *
+     */
     in(name: string): Interface.Connection | string;
+    /**
+     *
+     * @param name
+     * @param connection
+     */
     in(name: string, connection?: Interface.Connection): Interface.Connection | string {
         if (connection) {
             connection.inConnect({name: name, element: this});
@@ -147,6 +206,10 @@ class Element implements Interface.Element {
         return '';
     }
 
+    /**
+     *
+     * @param name
+     */
     inIndex(name: string): number {
         for (let i = 0; i < this.in_connections.length; i++) {
             if (typeof this.in_connections[i] === 'string') {
@@ -162,6 +225,10 @@ class Element implements Interface.Element {
         return -1;
     }
 
+    /**
+     *
+     * @param name
+     */
     out(name: string): Interface.Connection {
         for (let i = 0; i < this.out_connections.length; i++) {
             if (this.out_connections[i].out.name === name) {
@@ -171,6 +238,10 @@ class Element implements Interface.Element {
         return {} as Interface.Connection;
     }
 
+    /**
+     *
+     * @param array
+     */
     genState(array: Types.DSSSArray): Types.SignalArray[] {
         this.state = new Array(2 ** this.in_connections.length).fill(
             new Array(this.out_connections.length).fill('z')
@@ -190,7 +261,7 @@ class Element implements Interface.Element {
             ) {
                 this.genStateSignal(array[i] as Types.StateSignal);
             } else {
-                let eqArray: Types.SignalArray = new Array(this.out_connections.length).fill('z');
+                const eqArray: Types.SignalArray = new Array(this.out_connections.length).fill('z');
                 for (let i = 0; i < this.state.length; i++) {
                     if (JSON.stringify(this.state[i]) === JSON.stringify(eqArray)) {
                         this.state[i] = array[i] as Types.SignalArray;
@@ -202,6 +273,10 @@ class Element implements Interface.Element {
         return [];
     }
 
+    /**
+     *
+     * @param state
+     */
     private genStateDetailSignal(state: Types.DetailSignal): void {
         if (Array.isArray(state.in)) {
             state.in = state.in.join('');
@@ -221,11 +296,18 @@ class Element implements Interface.Element {
             }
         }
         if (flag) {
-            if (typeof state.out === 'string') state.out = this.genStateGenOutFromStr(state.out);
+            if (typeof state.out === 'string') {
+                state.out = this.genStateGenOutFromStr(state.out);
+            }
             this.state[parseInt(state.in, 2)] = state.out as Types.SignalArray;
         }
     }
 
+    /**
+     *
+     * @param state
+     * @param arri
+     */
     private genStateSignal(state: Types.StateSignal, arri?: [number, Types.Signal][]): void {
         if (
             typeof state.out === 'object' &&
@@ -243,7 +325,7 @@ class Element implements Interface.Element {
             }
             return;
         }
-        let ie = new Array(this.in_connections.length).fill('x');
+        const ie = new Array(this.in_connections.length).fill('x');
 
         if (arri) {
             for (let i = 0; i < arri.length; i++) {
@@ -254,6 +336,10 @@ class Element implements Interface.Element {
         this.genStateDetailSignal({in: ie, out: state.out as Types.StringSignalArray});
     }
 
+    /**
+     *
+     * @param outState
+     */
     private genStateGenOutFromStr(outState: string): Types.SignalArray {
         const result: Types.SignalArray = [];
         for (let i = 0; i < outState.length; i++) {
@@ -270,8 +356,11 @@ class Element implements Interface.Element {
         return result;
     }
 
+    /**
+     *
+     */
     clone(): Element {
-        let newElement = new Element();
+        const newElement = new Element();
         for (let i = 0; i < this.out_connections.length; i++) {
             newElement.out_connections.push(this.out_connections[i].clone(newElement));
         }
@@ -288,6 +377,9 @@ class Element implements Interface.Element {
         return newElement;
     }
 
+    /**
+     *
+     */
     isAllInConnected(): boolean {
         for (let i = 0; i < this.in_connections.length; i++) {
             if (typeof this.in_connections[i] === 'string') {
@@ -297,6 +389,9 @@ class Element implements Interface.Element {
         return true;
     }
 
+    /**
+     *
+     */
     isAllSignalNotZ(): boolean {
         for (let i = 0; i < this.state.length; i++) {
             for (let j = 0; j < this.state[i].length; j++) {
@@ -308,26 +403,47 @@ class Element implements Interface.Element {
         return true;
     }
 
+    /**
+     *
+     */
     isReady(): boolean {
         return this.isAllInConnected() && this.isAllSignalNotZ();
     }
 }
 
+/**
+ *
+ */
 class Generator implements Interface.Element {
     out_connections: Interface.Connection[];
     frequency: number;
+    /**
+     *
+     */
     constructor(frequency: number);
+    /**
+     *
+     */
     constructor(name: string, frequency: number);
-    constructor(arg1: any, frequency?: number) {
+    /**
+     *
+     * @param arg1
+     * @param frequency
+     */
+    constructor(arg1: number | string, frequency?: number) {
         if (typeof arg1 === 'string' && frequency) {
             this.frequency = frequency;
             this.out_connections = [Factories.Connection.create({name: arg1, element: this})];
         } else {
-            this.frequency = arg1;
+            this.frequency = arg1 as number;
             this.out_connections = [Factories.Connection.create({name: '', element: this})];
         }
     }
 
+    /**
+     *
+     * @param name
+     */
     out(name?: string): Interface.Connection {
         if (name) {
             if (name !== this.out_connections[0].out.name) {
@@ -337,17 +453,29 @@ class Generator implements Interface.Element {
         return this.out_connections[0];
     }
 
+    /**
+     *
+     */
     clone(): Generator {
-        let ne = new Generator(this.frequency);
+        const ne = new Generator(this.frequency);
         ne.out(this.out().out.name);
         return ne;
     }
 
+    /**
+     *
+     */
     isAllInConnected(): boolean {
-        if (this.out_connections[0].in === false) return false;
-        else return true;
+        if (this.out_connections[0].in === false) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
+    /**
+     *
+     */
     isReady(): boolean {
         return this.isAllInConnected() && this.out_connections[0].out.name !== '';
     }

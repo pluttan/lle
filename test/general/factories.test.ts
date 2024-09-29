@@ -1,10 +1,10 @@
+import * as lle from '../../src/lle';
+import factories from '../../src/factories';
 describe('Check factories class', () => {
-    var lle = require('../../src/lle');
-    var factories = require('../../src/factories').default;
 
     test('check new connection with one arg', () => {
-        let elem = new lle.Element();
-        let conn = factories.Connection.create({
+        const elem = new lle.Element();
+        const conn = factories.Connection.create({
             name: 'A_4',
             element: elem
         });
@@ -16,9 +16,9 @@ describe('Check factories class', () => {
     });
 
     test('check new connection with in as one', () => {
-        let elem = new lle.Element();
-        let elem2 = new lle.Element();
-        let conn = factories.Connection.create(
+        const elem = new lle.Element();
+        const elem2 = new lle.Element();
+        const conn = factories.Connection.create(
             {
                 name: 'A_4',
                 element: elem
@@ -41,10 +41,10 @@ describe('Check factories class', () => {
     });
 
     test('check new connection with in as array', () => {
-        let elem = new lle.Element();
-        let elem2 = new lle.Element();
-        let elem3 = new lle.Element();
-        let conn = factories.Connection.create(
+        const elem = new lle.Element();
+        const elem2 = new lle.Element();
+        const elem3 = new lle.Element();
+        const conn = factories.Connection.create(
             {
                 name: 'A_4',
                 element: elem

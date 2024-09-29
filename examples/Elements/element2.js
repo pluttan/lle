@@ -1,8 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var lle = require("../../dist/lle");
-var element1_1 = require("./element1");
-var element2 = new lle.Element(['A_7', 'A_6', 'A_5', 'A_4', 'A_3', 'A_2', 'A_1', 'A_0', 'E_n'], ['F_2', 'F_1', 'F_0'], [
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+const lle = require('../../dist/lle');
+const element1_1 = require('./element1');
+const element2 = new lle.Element(['A_7', 'A_6', 'A_5', 'A_4', 'A_3', 'A_2', 'A_1', 'A_0', 'E_n'], ['F_2', 'F_1', 'F_0'], [
     { name: 'E_n', state: 0, out: '00000000' },
     { in: '000000011', out: '000' },
     { in: '000000101', out: '001' },

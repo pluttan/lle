@@ -1,13 +1,13 @@
+import * as lle from '../../src/lle';
 describe('Check DFS/BFS functions', () => {
-    var lle = require('../../src/lle');
-    let g1 = new lle.Generator('g1', 1);
-    let g2 = new lle.Generator('g2', 2);
-    let g3 = new lle.Generator('g3', 3);
-    let g4 = new lle.Generator('g4', 4);
-    let e1 = new lle.Element('e1', ['A', 'B'], ['A', 'B', 'C'], []);
-    let e2 = new lle.Element('e2', ['A', 'B', 'C'], ['A', 'B'], []);
-    let e3 = new lle.Element('e3', ['A', 'B'], ['A', 'B'], []);
-    let e4 = new lle.Element('e4', ['A', 'B', 'C', 'D'], ['A', 'B', 'C'], []);
+    const g1 = new lle.Generator('g1', 1);
+    const g2 = new lle.Generator('g2', 2);
+    const g3 = new lle.Generator('g3', 3);
+    const g4 = new lle.Generator('g4', 4);
+    const e1 = new lle.Element('e1', ['A', 'B'], ['A', 'B', 'C'], []);
+    const e2 = new lle.Element('e2', ['A', 'B', 'C'], ['A', 'B'], []);
+    const e3 = new lle.Element('e3', ['A', 'B'], ['A', 'B'], []);
+    const e4 = new lle.Element('e4', ['A', 'B', 'C', 'D'], ['A', 'B', 'C'], []);
     e1.in('A', g1.out());
     e1.in('B', g2.out());
     e2.in('A', e1.out('B'));
@@ -19,7 +19,7 @@ describe('Check DFS/BFS functions', () => {
     e4.in('B', e2.out('A'));
     e4.in('C', e3.out('A'));
     e4.in('D', e3.out('B'));
-    let eg = new lle.ElementGraph(e2);
+    const eg = new lle.ElementGraph(e2);
 
     test('check getAllElementsDFS', () => {
         console.log(eg.getAllElementsDFS());

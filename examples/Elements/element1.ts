@@ -1,6 +1,6 @@
 import * as lle from '../../dist/lle';
 
-let element1: lle.Element = new lle.Element(
+const element1: lle.Element = new lle.Element(
     ['A_2', 'A_1', 'A_0', 'E_n'],
     ['F_0', 'F_1', 'F_2', 'F_3', 'F_4', 'F_5', 'F_6', 'F_7'],
     [
