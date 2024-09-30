@@ -26,49 +26,49 @@ import * as lle from 'ldamle';
 
 The main class of the library is the class for logical elements. Elements can be created, connected, combined, drawn, and simulated.
 
-> [Documentation for the `Element` interface](https://pluttan.github.io/lle/docs/documentation/interfaces/src_interface.Element.html)
+> [Documentation for the `Element` interface](https://pluttan.github.io/lle/docs/documentation/classes/controller_element.Element.html)
 
 Elements are divided into two types: static and dynamic.
 
 Since the behavior of static elements is easier to define, the library offers a complete set of functions for static elements: setting inputs, outputs, and the dependency of the output signal on the input signals, etc.
 
-> [Documentation for the `Element` class](https://pluttan.github.io/lle/docs/documentation/classes/src_controller_element.Element.html)
+> [Documentation for the `Element` class](https://pluttan.github.io/lle/docs/documentation/classes/controller_element.Element.html)
 
 Dynamic elements can only generate a square wave of a certain frequency; otherwise, dynamic elements can connect static elements to create complex dynamic elements.
 
-> [Documentation for the `Generator` class](https://pluttan.github.io/lle/docs/documentation/classes/src_controller_element.Generator.html)
+> [Documentation for the `Generator` class](https://pluttan.github.io/lle/docs/documentation/classes/controller_element.Generator.html)
 
 Standard elements are available in `lle.stde`.
-> [Documentation for `stde`](https://pluttan.github.io/lle/docs/documentation/modules/src_stde_stde.html)
+> [Documentation for `stde`](https://pluttan.github.io/lle/docs/documentation/modules/stde_stde.html)
 
 ## Connections
 
 All elements must be connected to each other. For this purpose, a connection class has been developed, which carries information about each connection between elements. A connection must have at least one output, but it is not required to have any inputs. A connection can have multiple inputs.
 
-> [Documentation for the `Connection` interface](https://pluttan.github.io/lle/docs/documentation/interfaces/src_interface.Connection.html)
-> 
-> [Documentation for the `Connection` class](https://pluttan.github.io/lle/docs/documentation/classes/src_controller_connection.Connection.html)
+> [Documentation for the `Connection` interface](https://pluttan.github.io/lle/docs/documentation/interfaces/interface.Connection.html)
+
+> [Documentation for the `Connection` class](https://pluttan.github.io/lle/docs/documentation/classes/controller_connection.Connection.html)
 
 ## Element Graph
 
 For proper modeling and visualization, an element graph is created for each element, consisting of the elements connected to it and the elements that are connected to it through another element, and so on. A graph can be created if there is at least one generator in the chain.
 
-> [Documentation for the `ElementGraph` interface](https://pluttan.github.io/lle/docs/documentation/interfaces/src_interface.ElementGraph.html)
+> [Documentation for the `ElementGraph` interface](https://pluttan.github.io/lle/docs/documentation/interfaces/interface.ElementGraph.html)
 
-> [Documentation for the `ElementGraph` class](https://pluttan.github.io/lle/docs/documentation/classes/src_controller_elementGraph.ElementGraph.html)
+> [Documentation for the `ElementGraph` class](https://pluttan.github.io/lle/docs/documentation/classes/controller_elementGraph.ElementGraph.html)
 
 ## Modeling
 
 A queue is created based on the element graph, which is used to calculate the state of all elements at each clock cycle of the given frequency. This is handled by the modeling.
 
-> [Documentation for the `Model` interface](https://pluttan.github.io/lle/docs/documentation/interfaces/src_interface.Model.html)
+> [Documentation for the `Model` interface](https://pluttan.github.io/lle/docs/documentation/interfaces/interface.Model.html)
 
-> [Documentation for the `Model` class](https://pluttan.github.io/lle/docs/documentation/modules/src_controller_model.html)
+> [Documentation for the `Model` class](https://pluttan.github.io/lle/docs/documentation/modules/controller_model.html)
 
 ## Types
 
 All non-standard types used in the library are described here.
-> [Documentation for `Types`](https://pluttan.github.io/lle/docs/documentation/modules/src_types.html)
+> [Documentation for `Types`](https://pluttan.github.io/lle/docs/documentation/modules/types.html)
 
 ## Test Coverage
 All code is covered by tests. I will add a test table here later. You can view the coverage at the following links:
@@ -114,48 +114,48 @@ import * as lle from 'ldamle';
 
 Основным классом библеотеки является класс логических элементов. Элеметы можно создавать, соединять, объедениять, отрисовывать и симулировать. 
 
-> [Документация интерфейса `Element`](https://pluttan.github.io/lle/docs/documentation/interfaces/src_interface.Element.html)
+> [Документация интерфейса `Element`](https://pluttan.github.io/lle/docs/documentation/interfaces/interface.Element.html)
 
 Элементы были разделены на 2 типа: статические и динамические.
 
 Так как поведение статических определить легче, библеотека предлагает полный набор функций для статических элементов: задание входов, выходов зависимость сигнала на выходе от сигналов на входе и т.д. 
 
-> [Документация класса `Element`](https://pluttan.github.io/lle/docs/documentation/classes/src_controller_element.Element.html)
+> [Документация класса `Element`](https://pluttan.github.io/lle/docs/documentation/classes/controller_element.Element.html)
 
 Динамические элементы могут только задавать меандр определенной частоты, в остальном к динамическим элементам можно подключать статические и получать сложные динамические элементы. 
 
-> [Документация класса `Generator`](https://pluttan.github.io/lle/docs/documentation/classes/src_controller_element.Generator.html)
+> [Документация класса `Generator`](https://pluttan.github.io/lle/docs/documentation/classes/controller_element.Generator.html)
 
 Стандартные элементы доступны в `lle.stde` 
-> [Документация `stde`](https://pluttan.github.io/lle/docs/documentation/modules/src_stde_stde.html)
+> [Документация `stde`](https://pluttan.github.io/lle/docs/documentation/modules/stde_stde.html)
 
 ## Соединения
 
 Все элементы должны соеденяться друг с другом. Для этого был разработан класс соединений, который несет в себе информацию о каждом соединении элементов. Соединению обязательно иметь один выход, но не обязательно иметь хоть один вход. Так же входов у соединения может быть несколько.
 
-> [Документация интерфейса `Connection`](https://pluttan.github.io/lle/docs/documentation/interfaces/src_interface.Connection.html)
-> 
-> [Документация класса `Connection`](https://pluttan.github.io/lle/docs/documentation/classes/src_controller_connection.Connection.html)
+> [Документация интерфейса `Connection`](https://pluttan.github.io/lle/docs/documentation/interfaces/interface.Connection.html)
+
+> [Документация класса `Connection`](https://pluttan.github.io/lle/docs/documentation/classes/controller_connection.Connection.html)
 
 ## Граф элементов
 
 Для правильного моделирования и отображения уго по одному элементу создается граф элементов, состоящий из элементов, подключенных к данному и элементов которые подключены к данному через другой элемент и т.д. Граф возможно создать при наличии в цепи хотя бы одного генератора.
 
-> [Документация интерфейса `ElementGraph`](https://pluttan.github.io/lle/docs/documentation/interfaces/src_interface.ElementGraph.html)
+> [Документация интерфейса `ElementGraph`](https://pluttan.github.io/lle/docs/documentation/interfaces/interface.ElementGraph.html)
 
-> [Документация класса `ElementGraph`](https://pluttan.github.io/lle/docs/documentation/classes/src_controller_elementGraph.ElementGraph.html)
+> [Документация класса `ElementGraph`](https://pluttan.github.io/lle/docs/documentation/classes/controller_elementGraph.ElementGraph.html)
 
 ## Моделирование
 
 По графу элементов создается очередь по которой необходимо просчитать состояние всех элементов на каждый такт заданной частоты. Этим занимается моделирование.
 
-> [Документация интерфейса `Model`](https://pluttan.github.io/lle/docs/documentation/interfaces/src_interface.Model.html)
+> [Документация интерфейса `Model`](https://pluttan.github.io/lle/docs/documentation/interfaces/interface.Model.html)
 
-> [Документация класса `Model`](https://pluttan.github.io/lle/docs/documentation/modules/src_controller_model.html)
+> [Документация класса `Model`](https://pluttan.github.io/lle/docs/documentation/modules/controller_model.html)
 
 ## Типы
 Все нестандартные типы, использованные в библеотеке описаны тут
-> [Документация `Types`](https://pluttan.github.io/lle/docs/documentation/modules/src_types.html)
+> [Документация `Types`](https://pluttan.github.io/lle/docs/documentation/modules/types.html)
 
 
 ## Покрытие тестами
