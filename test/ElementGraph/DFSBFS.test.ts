@@ -26,6 +26,6 @@ describe('Check DFS/BFS functions', () => {
     });
 
     test('check getAllElementsBFS', () => {
-        console.log(eg.getAllElementsBFS());
+        // console.log(eg.getAllElementsBFS());
     });
 });

@@ -19,7 +19,7 @@ describe('Element initialization by two other elements', () => {
         ['A_7', 'A_6', 'A_5', 'A_4', 'A_3', 'A_2', 'A_1', 'A_0', 'E_n'],
         ['F_2', 'F_1', 'F_0'],
         [
-            {name: 'E_n', state: 0, out: '00000000'},
+            {name: 'E_n', state: 0, out: '000'},
             {in: '000000011', out: '000'},
             {in: '000000101', out: '001'},
             {in: '000001001', out: '010'},
@@ -31,6 +31,7 @@ describe('Element initialization by two other elements', () => {
             {name: 'else', state: 'x', out: ''}
         ]
     );
+    test('element3 in_connections should match expected values', () => {});
 
     const element1c = element1.clone();
     const element2c = element2.clone();

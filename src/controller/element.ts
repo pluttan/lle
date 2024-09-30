@@ -1,6 +1,6 @@
 import * as Interface from '../interface';
 import * as Types from '../types';
-import {Factories} from '../factories';
+import { Factories } from '../factories';
 
 /**
  * Класс Element представляет элемент схемы с входными и выходными соединениями.
@@ -320,16 +320,24 @@ class Element implements Interface.Element {
             ) {
                 this.genStateSignal(array[i] as Types.StateSignal);
             } else {
-                const eqArray: Types.SignalArray = new Array(this.out_connections.length).fill('z');
-                for (let i = 0; i < this.state.length; i++) {
-                    if (JSON.stringify(this.state[i]) === JSON.stringify(eqArray)) {
-                        this.state[i] = array[i] as Types.SignalArray;
-                        break;
-                    }
-                }
+                this.genSignal(array[i] as Types.SignalArray);
             }
         }
-        return [];
+        return this.state;
+    }
+
+    /**
+     * Дополнительная функция для genState
+     * @param state
+     */
+    private genSignal(state: Types.SignalArray): void {
+        const eqArray: Types.SignalArray = new Array(this.out_connections.length).fill('z');
+        for (let i = 0; i < this.state.length; i++) {
+            if (JSON.stringify(this.state[i]) === JSON.stringify(eqArray)) {
+                this.state[i] = state as Types.SignalArray;
+                break;
+            }
+        }
     }
 
     /**
@@ -340,26 +348,29 @@ class Element implements Interface.Element {
         if (Array.isArray(state.in)) {
             state.in = state.in.join('');
         }
-        let flag = true;
-        for (let i = 0; i < state.in.length; i++) {
-            if (state.in[i] === 'x') {
-                this.genStateDetailSignal({
-                    in: state.in.slice(0, i) + 0 + state.in.slice(i + 1),
-                    out: state.out
-                });
-                this.genStateDetailSignal({
-                    in: state.in.slice(0, i) + 1 + state.in.slice(i + 1),
-                    out: state.out
-                });
-                flag = false;
-            }
+        const ie = this.getSignalGenerateVariations(state.in);
+        if (typeof state.out === 'string') {
+            state.out = this.genStateGenOutFromStr(state.out);
         }
-        if (flag) {
-            if (typeof state.out === 'string') {
-                state.out = this.genStateGenOutFromStr(state.out);
-            }
-            this.state[parseInt(state.in, 2)] = state.out as Types.SignalArray;
+        for (let i = 0; i < ie.length; i++){
+            this.state[parseInt(ie[i], 2)] = state.out as Types.SignalArray;
         }
+    }
+
+    /**
+     * Дополнительная функция для genState
+     * @param s
+     * @returns
+     */
+    private getSignalGenerateVariations(s: string): string[] {
+        if (!s.includes('x')) {
+            return [s]; // Если нет 'x', возвращаем строку как есть
+        }
+        const variations: string[] = [];
+        const firstXIndex = s.indexOf('x');
+        variations.push(...this.getSignalGenerateVariations(s.slice(0, firstXIndex) + '0' + s.slice(firstXIndex + 1)));
+        variations.push(...this.getSignalGenerateVariations(s.slice(0, firstXIndex) + '1' + s.slice(firstXIndex + 1)));
+        return variations;
     }
 
     /**
@@ -368,6 +379,15 @@ class Element implements Interface.Element {
      * @param arri
      */
     private genStateSignal(state: Types.StateSignal, arri?: [number, Types.Signal][]): void {
+        if (state.name === 'else') {
+            const eqArray: Types.SignalArray = new Array(this.out_connections.length).fill('z');
+            for (let i = 0; i < this.state.length; i++) {
+                if (JSON.stringify(this.state[i]) === JSON.stringify(eqArray)) {
+                    this.state[i] = state.out as Types.SignalArray;
+                }
+            }
+            return;
+        }
         if (
             typeof state.out === 'object' &&
             'name' in (state.out as object) &&

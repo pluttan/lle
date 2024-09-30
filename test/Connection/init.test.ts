@@ -15,7 +15,7 @@ describe('Check constructor', () => {
             {name: 'B', element: new lle.Element()}
         );
         expect(connect.out.name).toEqual('A');
-        expect(connect.in[0].name).toEqual('B');
+        expect((connect.in as lle.Types.SourcesArray)[0].name).toEqual('B');
     });
 
     test('Check constructor with Array in', () => {
@@ -25,6 +25,6 @@ describe('Check constructor', () => {
             {name: 'D', element: new lle.Element()}
         ]);
         expect(connect.out.name).toEqual('A');
-        expect(connect.in[0].name).toEqual('B');
+        expect((connect.in as lle.Types.SourcesArray)[0].name).toEqual('B');
     });
 });
