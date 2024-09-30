@@ -3,7 +3,7 @@
         "./src/**/*.ts",
         "./examples/**/*.ts"
     ],
-    "out": "./docs/api",
+    "out": "./docs/documentation",
     "readme": "README.md",
     "plugin": [
         "typedoc-material-theme"
