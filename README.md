@@ -70,6 +70,22 @@ A queue is created based on the element graph, which is used to calculate the st
 All non-standard types used in the library are described here.
 > [Documentation for `Types`](https://pluttan.github.io/lle/docs/documentation/modules/src_types.html)
 
+## Test Coverage
+All code is covered by tests. I will add a test table here later. You can view the coverage at the following links:
+
+> [Full code coverage](https://pluttan.github.io/lle/test/coverage/all/)
+
+> [Full code coverage without testing library installation](https://pluttan.github.io/lle/test/coverage/awotl/)
+
+> [Coverage of the `Connection` class](https://pluttan.github.io/lle/test/coverage/connection/)
+
+> [Coverage of the `Element` and `Generator` classes](https://pluttan.github.io/lle/test/coverage/element/)
+
+> [Coverage of the `ElementGraph` class](https://pluttan.github.io/lle/test/coverage/elementgraph/)
+
+> [Coverage of types and code factories](https://pluttan.github.io/lle/test/coverage/general/)
+
+
 # Библеотека для отрисовки и моделирования логических элементов
 
 Эта библиотека является инструментом для схемотехников, предоставляя полный набор функций для создания, соединения и комбинирования логических элементов, а также для отрисовки схем и моделирования гонок сигналов. Она разработана для упрощения процесса моделирования схем с помощью простых инструкций, позволяя пользователям легко создавать и анализировать сложные схемотехнические цепи. Библиотека поддерживает гибкие соединения элементов и моделирование сложных взаимодействий сигналов, предлагая как визуальные, так и логические представления технических элементов.
@@ -140,3 +156,25 @@ import * as lle from 'ldamle';
 ## Типы
 Все нестандартные типы, использованные в библеотеке описаны тут
 > [Документация `Types`](https://pluttan.github.io/lle/docs/documentation/modules/src_types.html)
+
+
+## Покрытие тестами
+Весь код покрыт тестами. Позже добавлю сюда таблицу тестов.
+Покрытие можно посмотреть по адресам:
+
+> [Покрытие всего кода](https://pluttan.github.io/lle/test/coverage/all/)
+
+> [Покрытие всего кода без тестирования установки библеотеки](https://pluttan.github.io/lle/test/coverage/awotl/)
+
+> [Покрытие класса `Connection`](https://pluttan.github.io/lle/test/coverage/connection/)
+
+> [Покрытие классов `Element` и `Generator`](https://pluttan.github.io/lle/test/coverage/element/)
+
+> [Покрытие класса `ElementGraph`](https://pluttan.github.io/lle/test/coverage/elementgraph/)
+
+> [Покрытие типов и фабрик кода](https://pluttan.github.io/lle/test/coverage/general/)
+
+
+
+
+
