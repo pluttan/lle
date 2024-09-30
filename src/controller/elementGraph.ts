@@ -2,22 +2,27 @@ import * as Interface from '../interface';
 import * as Types from '../types';
 
 /**
- *
+ * Класс, представляющий граф элементов. Он строит и обрабатывает граф на основе заданного элемента.
+ * Граф элементов может быть использован для обхода, поиска элементов и анализа соединений.
  */
 class ElementGraph implements Interface.ElementGraph {
+    /**
+     * Массив нод, представляющий граф элементов.
+     */
     tree: Types.ElementGraphNode[];
 
     /**
-     *
-     * @param pointElement
+     * Конструктор, инициализирующий граф и генерирующий его на основе начального элемента.
+     * @param pointElement Элемент, с которого начинается генерация графа.
      */
     constructor(pointElement: Interface.Element) {
         this.tree = [];
         this.genGraph(pointElement);
     }
+
     /**
-     *
-     * @param pointElement
+     * Генерирует граф элементов, начиная с указанного элемента.
+     * @param pointElement Элемент, с которого начинается генерация графа.
      */
     genGraph(pointElement: Interface.Element): void {
         const set = new Set<Interface.Element>();
@@ -29,9 +34,10 @@ class ElementGraph implements Interface.ElementGraph {
     }
 
     /**
-     *
-     * @param pointElement
-     * @param set
+     * Рекурсивно ищет генераторы (начальные элементы) в графе и строит дерево элементов.
+     * @param pointElement Элемент, с которого начинается поиск.
+     * @param set Множество элементов, уже обработанных для предотвращения циклов.
+     * @returns Массив нод графа.
      */
     private findGenerators(
         pointElement: Interface.Element,
@@ -41,8 +47,7 @@ class ElementGraph implements Interface.ElementGraph {
         if (pointElement.in_connections !== undefined) {
             for (let i = 0; i < pointElement.in_connections.length; i++) {
                 if (typeof pointElement.in_connections[i] !== 'string') {
-                    const elem = (pointElement.in_connections[i] as Interface.Connection).out
-                        .element;
+                    const elem = (pointElement.in_connections[i] as Interface.Connection).out.element;
                     if (!set.has(elem)) {
                         this.findGenerators(elem, set);
                     }
@@ -50,13 +55,8 @@ class ElementGraph implements Interface.ElementGraph {
             }
             for (let i = 0; i < pointElement.out_connections.length; i++) {
                 if (pointElement.out_connections[i].in) {
-                    for (
-                        let j = 0;
-                        j < (pointElement.out_connections[i].in as Types.SourcesArray).length;
-                        j++
-                    ) {
-                        const elem = (pointElement.out_connections[i].in as Types.SourcesArray)[j]
-                            .element;
+                    for (let j = 0; j < (pointElement.out_connections[i].in as Types.SourcesArray).length; j++) {
+                        const elem = (pointElement.out_connections[i].in as Types.SourcesArray)[j].element;
                         if (!set.has(elem)) {
                             this.findGenerators(elem, set);
                         }
@@ -64,27 +64,22 @@ class ElementGraph implements Interface.ElementGraph {
                 }
             }
         } else {
-            this.tree.push({element: pointElement, connection: [], out: []});
+            this.tree.push({ element: pointElement, connection: [], out: [] });
         }
         return this.tree;
     }
 
     /**
-     *
-     * @param node
-     * @param arregn
+     * Генерирует ноды графа и их связи.
+     * @param node Текущая нода для обработки.
+     * @param arregn Массив уже обработанных нод для предотвращения повторов.
      */
     private genGraphNode(node: Types.ElementGraphNode, arregn: Types.ElementGraphNode[]) {
         const pointElement = node.element;
         for (let j = 0; j < pointElement.out_connections.length; j++) {
             if (pointElement.out_connections[j].in) {
-                for (
-                    let k = 0;
-                    k < (pointElement.out_connections[j].in as Types.SourcesArray).length;
-                    k++
-                ) {
-                    const elem = (pointElement.out_connections[j].in as Types.SourcesArray)[k]
-                        .element;
+                for (let k = 0; k < (pointElement.out_connections[j].in as Types.SourcesArray).length; k++) {
+                    const elem = (pointElement.out_connections[j].in as Types.SourcesArray)[k].element;
                     const egn = arregn.find((el) => el.element === elem);
                     if (!egn) {
                         const newNode = {
@@ -105,8 +100,9 @@ class ElementGraph implements Interface.ElementGraph {
     }
 
     /**
-     *
-     * @param pointElement
+     * Находит элемент в графе.
+     * @param pointElement Элемент для поиска.
+     * @returns Нода графа с указанным элементом или `false`, если элемент не найден.
      */
     findElement(pointElement: Interface.Element): Types.ElementGraphNode | false {
         for (let i = 0; i < this.tree.length; i++) {
@@ -119,9 +115,10 @@ class ElementGraph implements Interface.ElementGraph {
     }
 
     /**
-     *
-     * @param pointElement
-     * @param firstNode
+     * Рекурсивно находит элемент в графе.
+     * @param pointElement Элемент для поиска.
+     * @param firstNode Нода, с которой начинается поиск.
+     * @returns Нода графа с указанным элементом или `false`, если элемент не найден.
      */
     private findElementNode(
         pointElement: Interface.Element,
@@ -140,26 +137,32 @@ class ElementGraph implements Interface.ElementGraph {
     }
 
     /**
-     *
+     * Возвращает массив выходов, которые ни к чему не подключены.
+     * @returns Массив соединений.
      */
     getOutputs(): Interface.Connection[] {
         return [];
     }
 
     /**
-     *
+     * Возвращает массив входов, которые ни к чему не подключены.
+     * @returns Массив соединений.
      */
     getInputs(): Interface.Connection[] {
         return [];
     }
+
     /**
-     *
+     * Возвращает массив генераторов графа.
+     * @returns Массив генераторов (начальных элементов).
      */
     getGenerators(): Interface.Element[] {
         return [];
     }
+
     /**
-     *
+     * Возвращает обход графа в глубину.
+     * @returns Массив элементов графа.
      */
     getAllElementsDFS(): Interface.Element[] {
         const nodes = this.getSetNodeDFS();
@@ -169,8 +172,10 @@ class ElementGraph implements Interface.ElementGraph {
         }
         return ret;
     }
+
     /**
-     *
+     * Возвращает обход графа в ширину.
+     * @returns Массив элементов графа.
      */
     getAllElementsBFS(): Interface.Element[] {
         const nodes = this.getAllNodeBFS();
@@ -182,8 +187,10 @@ class ElementGraph implements Interface.ElementGraph {
         }
         return ret;
     }
+
     /**
-     *
+     * Возвращает массив всех нод в глубину.
+     * @returns Массив нод графа.
      */
     getAllNodeDFS(): Types.ElementGraphNode[] {
         const ret: Types.ElementGraphNode[] = [];
@@ -192,10 +199,11 @@ class ElementGraph implements Interface.ElementGraph {
         }
         return ret;
     }
+
     /**
-     *
-     * @param node
-     * @param ret
+     * Рекурсивно обходит граф в глубину.
+     * @param node Нода для обработки.
+     * @param ret Массив результата обхода.
      */
     private DFSrec(node: Types.ElementGraphNode, ret: Types.ElementGraphNode[]): void {
         ret.push(node);
@@ -203,8 +211,10 @@ class ElementGraph implements Interface.ElementGraph {
             this.DFSrec(node.out[j], ret);
         }
     }
+
     /**
-     *
+     * Возвращает массив всех нод в ширину.
+     * @returns Массив нод графа.
      */
     getAllNodeBFS(): Types.ElementGraphNode[] {
         const ret = [...this.tree];
@@ -236,7 +246,8 @@ class ElementGraph implements Interface.ElementGraph {
     }
 
     /**
-     *
+     * Возвращает уникальные ноды графа после обхода в глубину.
+     * @returns Массив уникальных нод графа.
      */
     getSetNodeDFS(): Types.ElementGraphNode[] {
         const arr = this.getAllNodeDFS();
@@ -244,11 +255,12 @@ class ElementGraph implements Interface.ElementGraph {
     }
 
     /**
-     *
+     * Возвращает уникальные ноды графа после обхода в ширину.
+     * @returns Массив уникальных нод графа.
      */
     getSetNodeBFS(): Types.ElementGraphNode[] {
         return [];
     }
 }
 
-export default ElementGraph;
+export { ElementGraph };

@@ -1,10 +1,10 @@
 import * as lle from '../../src/lle';
-import factories from '../../src/factories';
+import {Factories} from '../../src/factories';
 describe('Check factories class', () => {
 
     test('check new connection with one arg', () => {
         const elem = new lle.Element();
-        const conn = factories.Connection.create({
+        const conn = Factories.Connection.create({
             name: 'A_4',
             element: elem
         });
@@ -18,7 +18,7 @@ describe('Check factories class', () => {
     test('check new connection with in as one', () => {
         const elem = new lle.Element();
         const elem2 = new lle.Element();
-        const conn = factories.Connection.create(
+        const conn = Factories.Connection.create(
             {
                 name: 'A_4',
                 element: elem
@@ -44,7 +44,7 @@ describe('Check factories class', () => {
         const elem = new lle.Element();
         const elem2 = new lle.Element();
         const elem3 = new lle.Element();
-        const conn = factories.Connection.create(
+        const conn = Factories.Connection.create(
             {
                 name: 'A_4',
                 element: elem

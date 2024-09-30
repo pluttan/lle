@@ -2,47 +2,60 @@ import * as Interface from '../interface';
 import * as Types from '../types';
 
 /**
- *
+ * Класс `Connection` позволяет соединять входы и выходы различных элементов.
+ * Соединение всегда имеет обязательный выход, а входы могут быть
+ * как отсутствовать, так и быть в единственном или множественном числе.
  */
 class Connection implements Interface.Connection {
     in: Types.SourcesArray | false;
     readonly out: Types.Sources;
 
     /**
-     *
+     * Создает новое соединение с подключением только выхода,
+     * оставляя вход свободным.
+     * @param outSource выход соединения
      */
     constructor(outSource: Types.Sources);
+
     /**
-     *
+     * Создает новое соединение с одним выходом и одним входом.
+     * @param outSource выход соединения
+     * @param inSource вход соединения
      */
     constructor(outSource: Types.Sources, inSource: Types.Sources);
+
     /**
-     *
+     * Создает новое соединение с одним выходом и несколькими входами.
+     * @param outSource выход соединения
+     * @param inSourceArray массив входов соединения
      */
     constructor(outSource: Types.Sources, inSourceArray: Types.SourcesArray);
 
     /**
+     * Основной конструктор, который позволяет создать соединение с
+     * одним выходом и опциональными входами.
+     * Соединение обязательно должно иметь выход, но может не иметь входов
+     * либо иметь один или несколько.
      *
-     * @param outSource
-     * @param arg2
+     * @param outSource выход соединения
+     * @param arg2 вход (или массив входов) соединения (не обязательно)
      */
     constructor(outSource: Types.Sources, arg2?: Types.Sources | Types.SourcesArray) {
         this.in = false;
         this.out = outSource;
         if (arg2) {
             if (Array.isArray(arg2)) {
-                this.out = outSource;
                 this.in = arg2;
             } else {
-                this.out = outSource;
                 this.in = [arg2];
             }
         }
     }
 
     /**
-     *
-     * @param inSource
+     * Подключает вход другого элемента к текущему соединению.
+     * @param inSource вход элемента
+     * @returns текущее соединение
      */
     inConnect(inSource: Types.Sources): Interface.Connection {
         if (Array.isArray(this.in)) {
@@ -54,8 +67,9 @@ class Connection implements Interface.Connection {
     }
 
     /**
-     *
-     * @param inSource
+     * Отключает вход от текущего соединения.
+     * @param inSource вход, который нужно отсоединить
+     * @returns текущее соединение
      */
     disConnect(inSource: Types.Sources): Interface.Connection {
         if (Array.isArray(this.in)) {
@@ -73,8 +87,9 @@ class Connection implements Interface.Connection {
     }
 
     /**
-     *
-     * @param inSourceArray
+     * Подключает несколько входов к текущему соединению.
+     * @param inSourceArray массив входов
+     * @returns текущее соединение
      */
     inConnects(inSourceArray: Types.SourcesArray): Interface.Connection {
         if (Array.isArray(this.in)) {
@@ -86,8 +101,9 @@ class Connection implements Interface.Connection {
     }
 
     /**
-     *
-     * @param inSourceArray
+     * Отключает несколько входов от текущего соединения.
+     * @param inSourceArray массив входов, которые нужно отсоединить
+     * @returns текущее соединение
      */
     disConnects(inSourceArray: Types.SourcesArray): Interface.Connection {
         if (Array.isArray(this.in)) {
@@ -99,29 +115,34 @@ class Connection implements Interface.Connection {
     }
 
     /**
-     *
+     * Проверяет, подключено ли текущее соединение хотя бы к одному входу.
+     * @returns true, если подключен хотя бы один вход
      */
     isConnected(): boolean {
         return Array.isArray(this.in) && this.in.length > 0;
     }
 
     /**
-     *
+     * Возвращает количество подключенных входов.
+     * @returns количество входов
      */
     lenInConnected(): number {
         return Array.isArray(this.in) ? this.in.length : 0;
     }
 
     /**
-     *
-     * @param element
+     * Клонирует текущее соединение, создавая новое с такими же входами,
+     * но подключенное к другому элементу.
+     * @param element элемент, к которому подключен выход нового соединения
+     * @returns новое соединение с клонированными входами
      */
     clone(element: Interface.Element): Interface.Connection {
         return new Connection({name: this.out.name, element: element});
     }
 
     /**
-     *
+     * Возвращает массив имен входов, подключенных к текущему соединению.
+     * @returns массив строк с именами входов
      */
     getArrayInString(): string[] {
         const arr: string[] = [];
@@ -134,8 +155,9 @@ class Connection implements Interface.Connection {
     }
 
     /**
-     *
-     * @param element
+     * Находит вход, который принадлежит указанному элементу.
+     * @param element элемент, для которого нужно найти подключенный вход
+     * @returns название входа
      */
     findInString(element: Interface.Element): string {
         if (Array.isArray(this.in)) {
@@ -149,4 +171,4 @@ class Connection implements Interface.Connection {
     }
 }
 
-export default Connection;
+export {Connection};

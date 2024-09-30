@@ -22,6 +22,6 @@ describe('Check genGraph functions', () => {
 
     test('check graph', () => {
         const eg = new lle.ElementGraph(e2);
-        console.dir(eg.tree[0].out[0].out[1].out[1].out);
+        console.log(eg.tree[0].out[0].out[1].out[1].out);
     });
 });
