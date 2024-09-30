@@ -41,6 +41,11 @@ describe('Element initialization by two other elements', () => {
     const element3 = new lle.Element(element1, element2);
     const element4 = new lle.Element(element2c, element1c);
     new lle.Element(element1c, element1);
+    const element5 = new lle.Element('2', element1c, element1);
+
+    test('element5 should have name', () => {
+        expect(element5.name).toEqual('2');
+    });
 
     test('element3 in_connections should match expected values', () => {
         expect(element3.in_connections).toEqual(['A_2', 'A_1', 'A_0', 'E_n', 'E_n']);

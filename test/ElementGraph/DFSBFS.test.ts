@@ -22,10 +22,10 @@ describe('Check DFS/BFS functions', () => {
     const eg = new lle.ElementGraph(e2);
 
     test('check getAllElementsDFS', () => {
-        console.log(eg.getAllElementsDFS());
+        expect(eg.getAllElementsDFS()).toEqual([g1, e1, e4, e2, e3, g2, g4, g3]);
     });
 
     test('check getAllElementsBFS', () => {
-        // console.log(eg.getAllElementsBFS());
+        expect(eg.getAllElementsBFS()).toEqual([g1, g2, g4, g3, e1, e2, e3, e4]);
     });
 });

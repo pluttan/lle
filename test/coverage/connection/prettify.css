@@ -1,104 +1,103 @@
-/* "version": "3.0.3", from istanbul-reports */
 .pln {
-	color: white; /* BSAC was #000; */
+	color: #cad3f5; /* Text */
 }
 
 @media screen {
 	.str {
-		color: #080;
+		color: #a6da95; /* Green */
 	}
 
 	.kwd {
-		color: blue; /* BSAC was #008; */
+		color: #8aadf4; /* Blue */
 	}
 
 	.com {
-		color: #800;
+		color: #ed8796; /* Red */
 	}
 
 	.typ {
-		color: magenta; /* BSAC was #606; */
+		color: #c6a0f6; /* Mauve */
 	}
 
 	.lit {
-		color: cyan; /* BSAC was #066; */
+		color: #f5a97f; /* Peach */
 	}
 
 	.clo,
 	.opn,
 	.pun {
-		color: #660;
+		color: #eed49f; /* Yellow */
 	}
 
 	.tag {
-		color: #008;
+		color: #8aadf4; /* Blue */
 	}
 
 	.atn {
-		color: #606;
+		color: #b8c0e0; /* Subtext 1 */
 	}
 
 	.atv {
-		color: #080;
+		color: #a6da95; /* Green */
 	}
 
 	.dec,
 	.var {
-		color: #606;
+		color: #a5adcb; /* Subtext 0 */
 	}
 
 	.fun {
-		color: red;
+		color: #f5bde6; /* Pink */
 	}
 }
 
 @media print, projection {
 	.str {
-		color: #060;
+		color: #a6da95; /* Green */
 	}
 
 	.kwd {
-		color: #006;
+		color: #8aadf4; /* Blue */
 		font-weight: bold;
 	}
 
 	.com {
-		color: #600;
+		color: #ed8796; /* Red */
 		font-style: italic;
 	}
 
 	.typ {
-		color: #404;
+		color: #c6a0f6; /* Mauve */
 		font-weight: bold;
 	}
 
 	.lit {
-		color: #044;
+		color: #f5a97f; /* Peach */
 	}
 
 	.clo,
 	.opn,
 	.pun {
-		color: #440;
+		color: #eed49f; /* Yellow */
 	}
 
 	.tag {
-		color: #006;
+		color: #8aadf4; /* Blue */
 		font-weight: bold;
 	}
 
 	.atn {
-		color: #404;
+		color: #b8c0e0; /* Subtext 1 */
 	}
 
 	.atv {
-		color: #060;
+		color: #a6da95; /* Green */
 	}
 }
 
 pre.prettyprint {
 	padding: 2px;
-	border: 1px solid #888;
+	border: 1px solid #8087a2; /* Overlay 1 */
 }
 
 ol.linenums {
@@ -122,5 +121,5 @@ li.L3,
 li.L5,
 li.L7,
 li.L9 {
-	background: #eee;
+	background: #5b6078; /* Surface 2 */
 }

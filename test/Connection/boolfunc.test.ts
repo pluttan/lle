@@ -1,6 +1,5 @@
 import * as lle from '../../src/lle';
 describe('bool function', () => {
-
     test('should return false when there are no connections', () => {
         const connect = new lle.Connection({name: 'A', element: new lle.Element()}, []);
         expect(connect.isConnected()).toBe(false);

@@ -1,7 +1,6 @@
 import * as lle from '../../src/lle';
 import {Factories} from '../../src/factories';
 describe('Check factories class', () => {
-
     test('check new connection with one arg', () => {
         const elem = new lle.Element();
         const conn = Factories.Connection.create({

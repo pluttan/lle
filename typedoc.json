@@ -1,14 +1,18 @@
 {
     "entryPoints": [
-        "./src/**/*.ts",
-        "./examples/**/*.ts"
+        "src/**/*.ts",
+        "docs/examples.ts"
     ],
     "out": "./docs/documentation",
     "readme": "README.md",
     "plugin": [
-        "typedoc-material-theme"
+        "typedoc-material-theme",
+        // "typedoc-plugin-markdown"
     ],
-    "exclude": ["./src/lle.ts"], 
+    "exclude": [
+        "./src/lle.ts"
+    ],
     "themeColor": "#b4befe",
+    "includeVersion": true,
     "excludeExternals": false
 }

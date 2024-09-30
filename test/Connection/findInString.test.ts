@@ -1,6 +1,5 @@
 import * as lle from '../../src/lle';
 describe('InString functions', () => {
-
     test('should return an empty array when there are no connections', () => {
         const connect = new lle.Connection({name: 'A', element: new lle.Element()}, []);
         expect(connect.getArrayInString()).toEqual([]);

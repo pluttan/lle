@@ -9,8 +9,8 @@ html {
 body {
 	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 	font-size: 14px;
-	color: rgb(255, 255, 255); /* BSAC was #333; */
-	background: black; /* BSAC added */
+	color: #b7bdf8; /* Text */
+	background: #1e2030; /* Crust */
 }
 
 .small {
@@ -28,10 +28,12 @@ body {
 h1 {
 	font-size: 20px;
 	margin: 0;
+	color: #b7bdf8; /* Yellow */
 }
 
 h2 {
 	font-size: 14px;
+	color: #a6da95; /* Green */
 }
 
 pre {
@@ -41,10 +43,12 @@ pre {
 	-moz-tab-size: 2;
 	-o-tab-size: 2;
 	tab-size: 2;
+	color: #f5bde6; /* Pink */
+	background: #24273a; /* Base */
 }
 
 a {
-	color: #0074d9;
+	color: #8aadf4; /* Blue */
 	text-decoration: none;
 }
 
@@ -54,6 +58,7 @@ a:hover {
 
 .strong {
 	font-weight: bold;
+	color: #8aadf4; /* Flamingo */
 }
 
 .space-top1 {
@@ -119,9 +124,9 @@ a:hover {
 	}
 }
 
+
 .quiet {
-	color: #7f7f7f;
-	color: rgba(255, 255, 0, 0.5); /* BSAC was 0,0,0,0.5 */
+	color: #cad3f5;
 }
 
 .quiet a {
@@ -131,8 +136,8 @@ a:hover {
 .fraction {
 	font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 	font-size: 10px;
-	color: yellow; /* BSAC was #555; */
-	background: rgba(255, 193, 7, 0.22); /* BSAC was #E8E8E8; */
+	color: #b7bdf8; /* Желтый */
+	background: #24273a; /* Легкий желтый */
 	padding: 4px 5px;
 	border-radius: 3px;
 	vertical-align: middle;
@@ -140,11 +145,11 @@ a:hover {
 
 div.path a:link,
 div.path a:visited {
-	color: #333;
+	color: #24273a; /* Темно-серый */
 }
 
 .coverage-summary td {
-	border-right: 1px solid #bbb;
+	border-right: 1px solid #b8c0e0;
 }
 
 .coverage-summary td,
@@ -187,8 +192,8 @@ table.coverage td span.cline-any {
 	border-radius: 3px;
 	position: relative;
 	padding: 0 4px;
-	background: #333;
-	color: yellow;
+	background: #333; /* Темно-серый */
+	color: #b7bdf8; /* Желтый */
 }
 
 .skip-if-branch {
@@ -273,7 +278,7 @@ table.coverage td span.cline-any {
 
 /* yellow */
 .cbranch-no {
-	background: #c21f39 !important; /* 9#6b6b00 !important; */ /* BSAC was yellow !important; */
+	background: #b7bdf8 !important; /* Yellow */
 	color: #111;
 }
 
@@ -287,7 +292,7 @@ table.coverage td span.cline-any {
 .red.solid,
 .status-line.low,
 .low .cover-fill {
-	background: #c21f39;
+	background: #ed8796; /* Red */
 }
 
 .chart {
@@ -295,85 +300,85 @@ table.coverage td span.cline-any {
 }
 
 .low .chart {
-	border: 1px solid #c21f39;
+	border: 1px solid #ed8796; /* Red */
 }
 
 /* medium red */
 .cstat-no,
 .fstat-no,
 .cbranch-no {
-	background: #801426; /* BSAC was #F6C6CE */
+	background: #e7828450; /* Maroon */
 }
 
 .highlighted,
 .highlighted .cstat-no,
 .highlighted .fstat-no,
 .highlighted .cbranch-no {
-	background: #c21f39 !important;
+	background: #ed8796 !important; /* Red */
 }
 
 /* light red */
 .low,
 .cline-no {
-	background: #46070f; /* BSAC was #FCE1E5; */
-	color: #c21f39; /* BSAC added */
+	background: #24273a; /* Dark red (custom) */
+	color: #ed8796; /* Red */
 }
 
 /* light green */
 .high,
 .cline-yes {
-	background: #2e430e; /* BSAC was rgb(230,245,208); */
-	color: rgb(77, 146, 33); /* BSAC added */
+	background: #24273a; /* Green */
+	color: #a6da95; /* Original green */
 }
 
 /* medium green */
 .cstat-yes {
-	background: #3d6714; /* BSAC was rgb(161,215,106); */
+	background: #a6da95; /* Custom dark green */
 }
 
 /* dark green */
 .status-line.high,
 .high .cover-fill {
-	background: rgb(77, 146, 33);
+	background: #a6da95; /* Original green */
 }
 
 .high .chart {
-	border: 1px solid rgb(77, 146, 33);
+	border: 1px solid #a6da95; /* Original green */
 }
 
 /* dark yellow (gold) */
 .status-line.medium,
 .medium .cover-fill {
-	background: #f9cd0b;
+	background: #4c4f69; /* Custom yellow */
 }
 
 .medium .chart {
-	border: 1px solid #f9cd0b;
+	border: 1px solid #4c4f69; /* Custom yellow */
 }
 
 /* light yellow */
 .medium {
-	background: #614f00; /* BSAC was #fff4c2; */
-	color: #bb9e1b; /* BSAC added */
+	background: #1e2030; /* Custom dark yellow */
+	color: #b7bdf8; /* Custom yellow */
 }
 
 .cstat-skip {
-	background: #454545; /* BSAC was #ddd; */
+	background: #454545; /* Original dark grey */
 	color: #111;
 }
 
 .fstat-skip {
-	background: #454545; /* BSAC was #ddd; */
+	background: #454545; /* Original dark grey */
 	color: #111 !important;
 }
 
 .cbranch-skip {
-	background: #454545; /* BSAC was #ddd !important; */
+	background: #454545; /* Original dark grey */
 	color: #111;
 }
 
 span.cline-neutral {
-	background: #151515; /* BSAC was #eaeaea; */
+	background: #202438; /* Custom dark grey */
 }
 
 .coverage-summary td.empty {
@@ -385,7 +390,7 @@ span.cline-neutral {
 }
 
 .cover-empty {
-	background: black; /* BSAC was white; */
+	background: #181926; /* Crust */
 }
 
 .cover-full {

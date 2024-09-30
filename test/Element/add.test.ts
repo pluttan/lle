@@ -1,6 +1,5 @@
 import * as lle from '../../src/lle';
 describe('Check add function', () => {
-
     const element1 = new lle.Element(
         ['A_2', 'A_1', 'A_0', 'E_n'],
         ['F_0', 'F_1', 'F_2', 'F_3', 'F_4', 'F_5', 'F_6', 'F_7'],

@@ -5,25 +5,21 @@
   "main": "dist/lle.js",
   "types": "dist/lle.d.ts",
   "scripts": {
-    "test": "bin/testlib&&jest --config ./test/jest.config.js",
-    "posttest": "cp ./node_modules/nyc-dark/*.css ./test/coverage/all",
-    "test:awotl": "jest --config ./test/jest.awotl.config.js",
-    "posttest:awotl": "cp ./node_modules/nyc-dark/*.css ./test/coverage/awotl",
-    "test:testlib": "bin/testlib&&jest --config ./test/jest.testlib.config.js",
-    "test:element": "jest --config ./test/jest.element.config.js",
-    "posttest:element": "cp ./node_modules/nyc-dark/*.css ./test/coverage/element",
-    "test:elementgraph": "jest --config ./test/jest.elementgraph.config.js",
-    "posttest:elementgraph": "cp ./node_modules/nyc-dark/*.css ./test/coverage/elementgraph",
-    "test:connection": "jest --config ./test/jest.connection.config.js",
-    "posttest:connection": "cp ./node_modules/nyc-dark/*.css ./test/coverage/connection/",
-    "test:general": "jest --config ./test/jest.general.config.js",
-    "posttest:general": "cp ./node_modules/nyc-dark/*.css ./test/coverage/general/",
+    "test": "bin/testlib&& bin/jestrunner all",
+    "test:awotl": "bin/jestrunner awotl",
+    "test:testlib": "bin/testlib&&bin/jestrunner testlib",
+    "test:element": "bin/jestrunner element",
+    "test:elementgraph": "bin/jestrunner elementgraph",
+    "test:connection": "bin/jestrunner connection",
+    "test:general": "bin/jestrunner general",
     "build": "webpack --config webpack.config.js",
     "dev": "tsc --watch",
     "prettier": "prettier --write ./src/**/*.ts ./bin/**/*.ts ./test/**/*.ts ./examples/**/*.ts ./docs/**/*.ts",
     "eslint": "eslint src/ examples/ test/",
     "eslint:fix": "eslint --fix src/ examples/ test/",
-    "typedoc": "typedoc"
+    "typedoc": "typedoc",
+    "codestyle": "npm run prettier;npm run eslint:fix",
+    "package": "npm run typedoc;npm run test;npm run codestyle;npm run build"
   },
   "husky": {
     "hooks": {
@@ -47,7 +43,7 @@
     "jest": "^24.9.0",
     "jest-html-reporters": "^3.1.7",
     "nyc": "^17.1.0",
-    "nyc-dark": "^3.0.3",
+    "nyc-dark": "3.0.3",
     "prettier": "^1.18.2",
     "replace-in-file-webpack-plugin": "^1.0.6",
     "string-replace-loader": "^3.1.0",
@@ -65,6 +61,7 @@
   },
   "dependencies": {
     "ts-loader": "^9.5.1",
-    "typedoc-material-theme": "1.1.0"
+    "typedoc-material-theme": "1.1.0",
+    "typedoc-plugin-markdown": "^4.2.8"
   }
 }

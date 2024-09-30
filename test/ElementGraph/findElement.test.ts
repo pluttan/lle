@@ -9,6 +9,7 @@ describe('Check findElement functions', () => {
     const e2 = new lle.Element('e2', ['A', 'B', 'C'], ['A', 'B'], []);
     const e3 = new lle.Element('e3', ['A', 'B'], ['A', 'B'], []);
     const e4 = new lle.Element('e4', ['A', 'B', 'C', 'D'], ['A', 'B', 'C'], []);
+    const e5 = new lle.Element('e5');
     e1.in('A', g1.out());
     e1.in('B', g2.out());
     e2.in('A', e1.out('B'));
@@ -34,5 +35,6 @@ describe('Check findElement functions', () => {
         expect((eg.findElement(e2) as Types.ElementGraphNode).element).toEqual(e2);
         expect((eg.findElement(e3) as Types.ElementGraphNode).element).toEqual(e3);
         expect((eg.findElement(e4) as Types.ElementGraphNode).element).toEqual(e4);
+        expect(eg.findElement(e5)).toEqual(false);
     });
 });

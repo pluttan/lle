@@ -1,6 +1,5 @@
 import * as lle from '../../src/lle';
 describe('Check function inConnect', () => {
-
     test('Check disconnection', () => {
         const elem = new lle.Element();
         const connect = new lle.Connection(

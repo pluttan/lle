@@ -47,7 +47,8 @@ class ElementGraph implements Interface.ElementGraph {
         if (pointElement.in_connections !== undefined) {
             for (let i = 0; i < pointElement.in_connections.length; i++) {
                 if (typeof pointElement.in_connections[i] !== 'string') {
-                    const elem = (pointElement.in_connections[i] as Interface.Connection).out.element;
+                    const elem = (pointElement.in_connections[i] as Interface.Connection).out
+                        .element;
                     if (!set.has(elem)) {
                         this.findGenerators(elem, set);
                     }
@@ -55,8 +56,13 @@ class ElementGraph implements Interface.ElementGraph {
             }
             for (let i = 0; i < pointElement.out_connections.length; i++) {
                 if (pointElement.out_connections[i].in) {
-                    for (let j = 0; j < (pointElement.out_connections[i].in as Types.SourcesArray).length; j++) {
-                        const elem = (pointElement.out_connections[i].in as Types.SourcesArray)[j].element;
+                    for (
+                        let j = 0;
+                        j < (pointElement.out_connections[i].in as Types.SourcesArray).length;
+                        j++
+                    ) {
+                        const elem = (pointElement.out_connections[i].in as Types.SourcesArray)[j]
+                            .element;
                         if (!set.has(elem)) {
                             this.findGenerators(elem, set);
                         }
@@ -78,8 +84,13 @@ class ElementGraph implements Interface.ElementGraph {
         const pointElement = node.element;
         for (let j = 0; j < pointElement.out_connections.length; j++) {
             if (pointElement.out_connections[j].in) {
-                for (let k = 0; k < (pointElement.out_connections[j].in as Types.SourcesArray).length; k++) {
-                    const elem = (pointElement.out_connections[j].in as Types.SourcesArray)[k].element;
+                for (
+                    let k = 0;
+                    k < (pointElement.out_connections[j].in as Types.SourcesArray).length;
+                    k++
+                ) {
+                    const elem = (pointElement.out_connections[j].in as Types.SourcesArray)[k]
+                        .element;
                     const egn = arregn.find((el) => el.element === elem);
                     if (!egn) {
                         const newNode = {
@@ -137,19 +148,57 @@ class ElementGraph implements Interface.ElementGraph {
     }
 
     /**
+     * Получаем массив элементов из элементов нод
+     * @param na элементы нод
+     * @returns массив элементов
+     */
+    private getElementArrayFromNodeArray(na: Types.ElementGraphNode[]): Interface.Element[] {
+        const ret: Interface.Element[] = [];
+        for (let i = 0; i < na.length; i++) {
+            ret.push(na[i].element);
+        }
+        return ret;
+    }
+
+    /**
      * Возвращает массив выходов, которые ни к чему не подключены.
      * @returns Массив соединений.
      */
     getOutputs(): Interface.Connection[] {
-        return [];
+        const it = this.getSetNodeDFS();
+        const ret: Interface.Connection[] = [];
+        for (let i = 0; i < it.length; i++) {
+            if (it[i].element.out_connections.length !== it[i].out.length) {
+                for (let j = 0; j < it[i].element.out_connections.length; j++) {
+                    if (!it[i].element.out_connections[j].in) {
+                        ret.push(it[i].element.out_connections[j]);
+                    }
+                }
+            }
+        }
+        return ret;
     }
 
     /**
      * Возвращает массив входов, которые ни к чему не подключены.
      * @returns Массив соединений.
      */
-    getInputs(): Interface.Connection[] {
-        return [];
+    getInputs(): Types.SourcesArray {
+        const it = this.getSetNodeDFS();
+        const ret: Types.SourcesArray = [];
+        for (let i = 0; i < it.length; i++) {
+            if ('in_connections' in it[i].element) {
+                const nuo = it[i].element.in_connections as (string | Interface.Connection)[];
+                if (nuo.length !== it[i].out.length) {
+                    for (let j = 0; j < nuo.length; j++) {
+                        if (typeof nuo[j] === 'string') {
+                            ret.push({ name: nuo[j] as string, element: it[i].element });
+                        }
+                    }
+                }
+            }
+        }
+        return ret;
     }
 
     /**
@@ -157,7 +206,7 @@ class ElementGraph implements Interface.ElementGraph {
      * @returns Массив генераторов (начальных элементов).
      */
     getGenerators(): Interface.Element[] {
-        return [];
+        return this.getElementArrayFromNodeArray(this.tree);
     }
 
     /**
@@ -165,12 +214,7 @@ class ElementGraph implements Interface.ElementGraph {
      * @returns Массив элементов графа.
      */
     getAllElementsDFS(): Interface.Element[] {
-        const nodes = this.getSetNodeDFS();
-        const ret: Interface.Element[] = [];
-        for (let i = 0; i < nodes.length; i++) {
-            ret.push(nodes[i].element);
-        }
-        return ret;
+        return this.getElementArrayFromNodeArray(this.getSetNodeDFS());
     }
 
     /**
@@ -178,14 +222,7 @@ class ElementGraph implements Interface.ElementGraph {
      * @returns Массив элементов графа.
      */
     getAllElementsBFS(): Interface.Element[] {
-        const nodes = this.getAllNodeBFS();
-        const ret: Interface.Element[] = [];
-        for (let i = 0; i < nodes.length; i++) {
-            if (!ret.find((el) => el === nodes[i].element)) {
-                ret.push(nodes[i].element);
-            }
-        }
-        return ret;
+        return this.getElementArrayFromNodeArray(this.getAllNodeBFS());
     }
 
     /**
@@ -213,6 +250,21 @@ class ElementGraph implements Interface.ElementGraph {
     }
 
     /**
+     * Находит все соединения, к которым подключена данная нода
+     * @param node Данная нода
+     * @returns Массив соединений
+     */
+    getConnectionsNode(node: Types.ElementGraphNode): Interface.Connection[] {
+        const ret: Interface.Connection[] = [];
+        for (let i = 0; i < node.element.out_connections.length; i++) {
+            if (node.element.out_connections[i].in) {
+                ret.push(node.element.out_connections[i]);
+            }
+        }
+        return ret;
+    }
+
+    /**
      * Возвращает массив всех нод в ширину.
      * @returns Массив нод графа.
      */
@@ -225,7 +277,7 @@ class ElementGraph implements Interface.ElementGraph {
                 if (!ret.find((el) => el === allel[i])) {
                     let fl = true;
                     for (let j = 0; j < allel[i].connection.length; j++) {
-                        if (!conn.find((el) => el === allel[i].connection[j])) {
+                        if (!ret.find((el) => el.element === allel[i].connection[j].out.element)) {
                             fl = false;
                             break;
                         }
@@ -252,14 +304,6 @@ class ElementGraph implements Interface.ElementGraph {
     getSetNodeDFS(): Types.ElementGraphNode[] {
         const arr = this.getAllNodeDFS();
         return arr.filter((value, index, self) => self.indexOf(value) === index);
-    }
-
-    /**
-     * Возвращает уникальные ноды графа после обхода в ширину.
-     * @returns Массив уникальных нод графа.
-     */
-    getSetNodeBFS(): Types.ElementGraphNode[] {
-        return [];
     }
 }
 

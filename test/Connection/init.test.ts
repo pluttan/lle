@@ -1,6 +1,5 @@
 import * as lle from '../../src/lle';
 describe('Check constructor', () => {
-
     test('Check constructor with out', () => {
         const connect = new lle.Connection({
             name: 'A',

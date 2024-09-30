@@ -1,6 +1,6 @@
 import * as Interface from '../interface';
 import * as Types from '../types';
-import { Factories } from '../factories';
+import {Factories} from '../factories';
 
 /**
  * Класс Element представляет элемент схемы с входными и выходными соединениями.
@@ -117,7 +117,7 @@ class Element implements Interface.Element {
     setParams(inName: string[], outName: string[], signals: Types.DSSSArray): Element {
         for (let i = 0; i < outName.length; i++) {
             this.out_connections.push(
-                Factories.Connection.create({ name: outName[i], element: this })
+                Factories.Connection.create({name: outName[i], element: this})
             );
         }
         this.in_connections = inName;
@@ -239,7 +239,7 @@ class Element implements Interface.Element {
      */
     in(name: string, connection?: Interface.Connection): Interface.Connection | string {
         if (connection) {
-            connection.inConnect({ name: name, element: this });
+            connection.inConnect({name: name, element: this});
             for (let i = 0; i < this.in_connections.length; i++) {
                 if (this.in_connections[i] === name) {
                     this.in_connections[i] = connection;
@@ -352,7 +352,7 @@ class Element implements Interface.Element {
         if (typeof state.out === 'string') {
             state.out = this.genStateGenOutFromStr(state.out);
         }
-        for (let i = 0; i < ie.length; i++){
+        for (let i = 0; i < ie.length; i++) {
             this.state[parseInt(ie[i], 2)] = state.out as Types.SignalArray;
         }
     }
@@ -368,8 +368,16 @@ class Element implements Interface.Element {
         }
         const variations: string[] = [];
         const firstXIndex = s.indexOf('x');
-        variations.push(...this.getSignalGenerateVariations(s.slice(0, firstXIndex) + '0' + s.slice(firstXIndex + 1)));
-        variations.push(...this.getSignalGenerateVariations(s.slice(0, firstXIndex) + '1' + s.slice(firstXIndex + 1)));
+        variations.push(
+            ...this.getSignalGenerateVariations(
+                s.slice(0, firstXIndex) + '0' + s.slice(firstXIndex + 1)
+            )
+        );
+        variations.push(
+            ...this.getSignalGenerateVariations(
+                s.slice(0, firstXIndex) + '1' + s.slice(firstXIndex + 1)
+            )
+        );
         return variations;
     }
 
@@ -412,7 +420,7 @@ class Element implements Interface.Element {
             }
         }
         ie[this.inIndex(state.name)] = state.state;
-        this.genStateDetailSignal({ in: ie, out: state.out as Types.StringSignalArray });
+        this.genStateDetailSignal({in: ie, out: state.out as Types.StringSignalArray});
     }
 
     /**
@@ -541,10 +549,10 @@ class Generator implements Interface.Element {
     constructor(arg1: number | string, frequency?: number) {
         if (typeof arg1 === 'string' && frequency) {
             this.frequency = frequency;
-            this.out_connections = [Factories.Connection.create({ name: arg1, element: this })];
+            this.out_connections = [Factories.Connection.create({name: arg1, element: this})];
         } else {
             this.frequency = arg1 as number;
-            this.out_connections = [Factories.Connection.create({ name: '', element: this })];
+            this.out_connections = [Factories.Connection.create({name: '', element: this})];
         }
     }
 
@@ -602,4 +610,4 @@ class Generator implements Interface.Element {
     }
 }
 
-export { Element, Generator };
+export {Element, Generator};

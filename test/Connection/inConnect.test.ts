@@ -1,7 +1,6 @@
 import * as lle from '../../src/lle';
 import * as Types from '../../src/types';
 describe('Check function inConnect', () => {
-
     test('Check connection without in', () => {
         const connect = new lle.Connection({
             name: 'A',
