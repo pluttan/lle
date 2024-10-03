@@ -1,3 +1,4 @@
 {
-    "livePreview.defaultPreviewPath": "/coverage/index.html"
+    "livePreview.defaultPreviewPath": "/coverage/index.html",
+    "background.enabled": true
 }

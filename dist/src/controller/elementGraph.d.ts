@@ -46,6 +46,12 @@ declare class ElementGraph implements Interface.ElementGraph {
      */
     private findElementNode;
     /**
+     * Получаем массив элементов из элементов нод
+     * @param na элементы нод
+     * @returns массив элементов
+     */
+    private getElementArrayFromNodeArray;
+    /**
      * Возвращает массив выходов, которые ни к чему не подключены.
      * @returns Массив соединений.
      */
@@ -54,7 +60,7 @@ declare class ElementGraph implements Interface.ElementGraph {
      * Возвращает массив входов, которые ни к чему не подключены.
      * @returns Массив соединений.
      */
-    getInputs(): Interface.Connection[];
+    getInputs(): Types.SourcesArray;
     /**
      * Возвращает массив генераторов графа.
      * @returns Массив генераторов (начальных элементов).
@@ -82,6 +88,12 @@ declare class ElementGraph implements Interface.ElementGraph {
      */
     private DFSrec;
     /**
+     * Находит все соединения, к которым подключена данная нода
+     * @param node Данная нода
+     * @returns Массив соединений
+     */
+    getConnectionsNode(node: Types.ElementGraphNode): Interface.Connection[];
+    /**
      * Возвращает массив всех нод в ширину.
      * @returns Массив нод графа.
      */
@@ -91,11 +103,6 @@ declare class ElementGraph implements Interface.ElementGraph {
      * @returns Массив уникальных нод графа.
      */
     getSetNodeDFS(): Types.ElementGraphNode[];
-    /**
-     * Возвращает уникальные ноды графа после обхода в ширину.
-     * @returns Массив уникальных нод графа.
-     */
-    getSetNodeBFS(): Types.ElementGraphNode[];
 }
 export { ElementGraph };
 //# sourceMappingURL=elementGraph.d.ts.map

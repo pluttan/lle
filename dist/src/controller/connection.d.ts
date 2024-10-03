@@ -6,8 +6,18 @@ import * as Types from '../types';
  * как отсутствовать, так и быть в единственном или множественном числе.
  */
 declare class Connection implements Interface.Connection {
+    /**
+     * * Массив подключенных входов или false, если входы отсутствуют
+     */
     in: Types.SourcesArray | false;
+    /**
+     * * Выход соединения (только для чтения)
+     */
     readonly out: Types.Sources;
+    /**
+     * * Текущий сигнал соединения
+     */
+    state: Types.Signal;
     /**
      * Создает новое соединение с подключением только выхода,
      * оставляя вход свободным.
@@ -26,6 +36,20 @@ declare class Connection implements Interface.Connection {
      * @param inSourceArray массив входов соединения
      */
     constructor(outSource: Types.Sources, inSourceArray: Types.SourcesArray);
+    /**
+     * Создает новое соединение и его состояние с одним выходом и одним входом.
+     * @param outSource выход соединения
+     * @param inSource вход соединения
+     * @param state Текущее состояние элемента
+     */
+    constructor(outSource: Types.Sources, inSource: Types.Sources, state: Types.Signal);
+    /**
+     * Создает новое соединение и его состояние с одним выходом и несколькими входами.
+     * @param outSource выход соединения
+     * @param inSourceArray массив входов соединения
+     * @param state Текущее состояние элемента
+     */
+    constructor(outSource: Types.Sources, inSourceArray: Types.SourcesArray, state: Types.Signal);
     /**
      * Подключает вход другого элемента к текущему соединению.
      * @param inSource вход элемента

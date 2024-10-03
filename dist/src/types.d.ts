@@ -118,5 +118,20 @@ type ElementGraphNode = {
     connection: Connection[];
     out: ElementGraphNode[];
 };
-export { Signal, SignalArray, StateSignal, StateSignalArray, StringSignalArray, DetailSignal, DetailSignalArray, DSSSArray, Sources, SourcesArray, ElementGraphNode };
+type ModelTime = {
+    now: number;
+    freq: number;
+    begin: number;
+    end: number;
+    pattern_end: number;
+};
+type ModelState = {
+    time: number;
+    state: string;
+};
+type ModelStateArray = {
+    element: Element;
+    states: ModelState[];
+};
+export { Signal, SignalArray, StateSignal, StateSignalArray, StringSignalArray, DetailSignal, DetailSignalArray, DSSSArray, Sources, SourcesArray, ElementGraphNode, ModelTime, ModelState, ModelStateArray };
 //# sourceMappingURL=types.d.ts.map

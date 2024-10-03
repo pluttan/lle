@@ -105,6 +105,10 @@ interface Element {
      */
     state?: Types.SignalArray[];
     /**
+     * * Числовое значение частоты переключения элемента
+     */
+    frequency?: number;
+    /**
      * * Имя элемента
      */
     name?: string;
@@ -169,6 +173,10 @@ interface Connection {
      * * Выход соединения (только для чтения)
      */
     readonly out: Types.Sources;
+    /**
+     * * Текущий сигнал соединения
+     */
+    state: Types.Signal;
 }
 interface Model {
     /**
@@ -176,27 +184,13 @@ interface Model {
      */
     generators: Element[];
     /**
-     * * Массив всех элементов, учавствующих в моделировании
-     */
-    elements_array: Element[];
-    /**
      * * Объект времени, содержащий текущее время, частоту, начало/конец моделирования и конец паттерна
      */
-    time: {
-        now: number;
-        freq: number;
-        begin: number;
-        end: number;
-        pattern_end: number;
-    };
+    time: Types.ModelTime;
     /**
-     * * Таблица-результат моделирования, содержащий информацию о времени, генераторах и элементах
+     * * Таблица моделирования, содержащая элементы их состояния и время текущего состояния
      */
-    model_table: {
-        t: number;
-        generators: Types.SignalArray;
-        elements: Types.SignalArray[];
-    }[];
+    model_table: Types.ModelStateArray[];
     /**
      * * Автоматически устанавливает частоту моделирования по частотам генераторов
      */
@@ -234,35 +228,29 @@ interface Model {
      */
     remodelAll(): void;
     /**
-     * * Находит выход по соединению
+     * * Находит сигнал выхода по соединению
      * @param out Соединение
      * @returns Массив сигналов для данного соединения
      */
-    findOutput(out: Connection): Types.SignalArray;
+    findOutput(out: Connection): Types.Signal;
     /**
-     * * Находит выход по соединению с указанием времени
+     * * Находит сигнал выхода по соединению с указанием времени
      * @param out Соединение
      * @returns Массив объектов, содержащих время и сигнал
      */
-    findOutputT(out: Connection): {
-        t: number;
-        signal: Types.Signal;
-    }[];
+    findOutputT(out: Connection): Types.ModelState[];
     /**
-     * * Находит все выходы по соединению
-     * @param out Соединение
-     * @returns Массив массивов сигналов для данного соединения
+     * * Находит все выходные сигналы по элементу
+     * @param element Элемент
+     * @returns Массив сигналов для данного элемента (текущее)
      */
-    findOutputs(out: Connection): Types.SignalArray[];
+    findElement(element: Element): string;
     /**
-     * * Находит все выходы по соединению с указанием времени
+     * * Находит все выходные сигналы по элементу с указанием времени
      * @param out Соединение
      * @returns Массив объектов, содержащих время и массив сигналов
      */
-    findOutputsT(out: Connection): {
-        t: number;
-        signals: Types.Signal[];
-    }[];
+    findElementT(out: Element): Types.ModelState[];
 }
 /**
  * Интерфейс для создания и управления графом элементов.
@@ -288,17 +276,21 @@ interface ElementGraph {
      */
     findElement(pointElement: Element): (Types.ElementGraphNode | false);
     /**
+     * * Находит все соединения, к которым подключен данный узел
+     * @param node Данный узел
+     * @returns Массив соединений
+     */
+    getConnectionsNode(node: Types.ElementGraphNode): Connection[];
+    /**
      * * Возвращает массив выходных соединений, которые ни к чему не подключены.
-     * Это может быть полезно для анализа недостающих связей в графе.
      * @returns Массив незадействованных выходных соединений.
      */
     getOutputs(): Connection[];
     /**
      * * Возвращает массив входных соединений, которые ни к чему не подключены.
-     * Это может помочь в поиске недостающих входных соединений в графе.
      * @returns Массив незадействованных входных соединений.
      */
-    getInputs(): Connection[];
+    getInputs(): Types.SourcesArray;
     /**
      * * Возвращает массив генераторов, которые присутствуют в графе.
      * Генераторы — это элементы, создающие сигнал (например, генераторы меандра).

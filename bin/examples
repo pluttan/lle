@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# Путь к директории с исходными файлами
+SOURCE_DIR="./examples"
+# Путь к директории, где будут храниться HTML-страницы
+OUTPUT_DIR="./docs/examples"
+
+# Создаем директорию для HTML, если ее нет
+mkdir -p "$OUTPUT_DIR"
+
+# Проходим по каждому файлу в исходной директории
+find "$SOURCE_DIR" -type f \( -name "*.ts" \) | while read -r FILE; do
+  # Получаем относительный путь файла
+  REL_PATH="${FILE#$SOURCE_DIR/}"
+  
+  # Определяем путь для вывода
+  OUTPUT_PATH="$OUTPUT_DIR/${REL_PATH%.ts}.html"
+  
+  # Создаем директорию для HTML-файлов, если ее нет
+  mkdir -p "$(dirname "$OUTPUT_PATH")"
+
+  # Подсвечиваем код с использованием highlight.js через Node.js
+  node -e "
+    const fs = require('fs');
+    const hljs = require('highlight.js/lib/core'); 
+    hljs.registerLanguage('ts', require('highlight.js/lib/languages/typescript'));
+    const code = fs.readFileSync('$FILE', 'utf8');
+    const highlightedCode = hljs.highlight(code,  { language: 'ts' }).value;
+
+    const htmlContent = \`
+    <html>
+    <head>
+    <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/@catppuccin/highlightjs@1.0.0/css/catppuccin-macchiato.css'>
+    <style>
+        body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+          font-family: Arial, sans-serif;
+          background-color: #232634;
+          color: #c6d0f5;
+        }
+        pre {
+          background-color: #303446;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          max-width: 80%;
+          word-wrap: break-word;
+        }
+        code {
+          font-size: 14px;
+        }
+    </style>
+    </head>
+    <body><pre><code>\${highlightedCode}</code></pre></body>
+    </html>\`;
+
+    fs.writeFileSync('$OUTPUT_PATH', htmlContent);
+  "
+
+  echo "Generated HTML for $FILE at $OUTPUT_PATH"
+done
+
+echo "All files have been processed."

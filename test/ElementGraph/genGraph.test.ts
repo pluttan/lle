@@ -22,206 +22,204 @@ describe('Check genGraph functions', () => {
 
     test('check graph', () => {
         const eg = new lle.ElementGraph(e2);
-        expect(eg.tree).toEqual(
-            [
-                {
-                    element: g1,
-                    connection: [],
-                    out: [
-                        {
-                            element: e1,
-                            connection: e1.in_connections,
-                            out: [
-                                {
-                                    element: e4,
-                                    connection: e4.in_connections,
-                                    out: []
-                                },
-                                {
-                                    element: e2,
-                                    connection: e2.in_connections,
-                                    out: [
-                                        {
-                                            element: e4,
-                                            connection: e4.in_connections,
-                                            out: []
-                                        },
-                                        {
-                                            element: e3,
-                                            connection: e3.in_connections,
-                                            out: [
-                                                {
-                                                    element: e4,
-                                                    connection: e4.in_connections,
-                                                    out: []
-                                                },
-                                                {
-                                                    element: e4,
-                                                    connection: e4.in_connections,
-                                                    out: []
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    element: e2,
-                                    connection: e2.in_connections,
-                                    out: [
-                                        {
-                                            element: e4,
-                                            connection: e4.in_connections,
-                                            out: []
-                                        },
-                                        {
-                                            element: e3,
-                                            connection: e3.in_connections,
-                                            out: [
-                                                {
-                                                    element: e4,
-                                                    connection: e4.in_connections,
-                                                    out: []
-                                                },
-                                                {
-                                                    element: e4,
-                                                    connection: e4.in_connections,
-                                                    out: []
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    element: g2,
-                    connection: [],
-                    out: [
-                        {
-                            element: e1,
-                            connection: e1.in_connections,
-                            out: [
-                                {
-                                    element: e4,
-                                    connection: e4.in_connections,
-                                    out: []
-                                },
-                                {
-                                    element: e2,
-                                    connection: e2.in_connections,
-                                    out: [
-                                        {
-                                            element: e4,
-                                            connection: e4.in_connections,
-                                            out: []
-                                        },
-                                        {
-                                            element: e3,
-                                            connection: e3.in_connections,
-                                            out: [
-                                                {
-                                                    element: e4,
-                                                    connection: e4.in_connections,
-                                                    out: []
-                                                },
-                                                {
-                                                    element: e4,
-                                                    connection: e4.in_connections,
-                                                    out: []
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    element: e2,
-                                    connection: e2.in_connections,
-                                    out: [
-                                        {
-                                            element: e4,
-                                            connection: e4.in_connections,
-                                            out: []
-                                        },
-                                        {
-                                            element: e3,
-                                            connection: e3.in_connections,
-                                            out: [
-                                                {
-                                                    element: e4,
-                                                    connection: e4.in_connections,
-                                                    out: []
-                                                },
-                                                {
-                                                    element: e4,
-                                                    connection: e4.in_connections,
-                                                    out: []
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    element: g4,
-                    connection: [],
-                    out: [
-                        {
-                            element: e3,
-                            connection: e3.in_connections,
-                            out: [
-                                {
-                                    element: e4,
-                                    connection: e4.in_connections,
-                                    out: []
-                                },
-                                {
-                                    element: e4,
-                                    connection: e4.in_connections,
-                                    out: []
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    element: g3,
-                    connection: [],
-                    out: [
-                        {
-                            element: e2,
-                            connection: e2.in_connections,
-                            out: [
-                                {
-                                    element: e4,
-                                    connection: e4.in_connections,
-                                    out: []
-                                },
-                                {
-                                    element: e3,
-                                    connection: e3.in_connections,
-                                    out: [
-                                        {
-                                            element: e4,
-                                            connection: e4.in_connections,
-                                            out: []
-                                        },
-                                        {
-                                            element: e4,
-                                            connection: e4.in_connections,
-                                            out: []
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-            ]
-        );
+        expect(eg.tree).toEqual([
+            {
+                element: g1,
+                connection: [],
+                out: [
+                    {
+                        element: e1,
+                        connection: e1.in_connections,
+                        out: [
+                            {
+                                element: e4,
+                                connection: e4.in_connections,
+                                out: []
+                            },
+                            {
+                                element: e2,
+                                connection: e2.in_connections,
+                                out: [
+                                    {
+                                        element: e4,
+                                        connection: e4.in_connections,
+                                        out: []
+                                    },
+                                    {
+                                        element: e3,
+                                        connection: e3.in_connections,
+                                        out: [
+                                            {
+                                                element: e4,
+                                                connection: e4.in_connections,
+                                                out: []
+                                            },
+                                            {
+                                                element: e4,
+                                                connection: e4.in_connections,
+                                                out: []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                element: e2,
+                                connection: e2.in_connections,
+                                out: [
+                                    {
+                                        element: e4,
+                                        connection: e4.in_connections,
+                                        out: []
+                                    },
+                                    {
+                                        element: e3,
+                                        connection: e3.in_connections,
+                                        out: [
+                                            {
+                                                element: e4,
+                                                connection: e4.in_connections,
+                                                out: []
+                                            },
+                                            {
+                                                element: e4,
+                                                connection: e4.in_connections,
+                                                out: []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                element: g2,
+                connection: [],
+                out: [
+                    {
+                        element: e1,
+                        connection: e1.in_connections,
+                        out: [
+                            {
+                                element: e4,
+                                connection: e4.in_connections,
+                                out: []
+                            },
+                            {
+                                element: e2,
+                                connection: e2.in_connections,
+                                out: [
+                                    {
+                                        element: e4,
+                                        connection: e4.in_connections,
+                                        out: []
+                                    },
+                                    {
+                                        element: e3,
+                                        connection: e3.in_connections,
+                                        out: [
+                                            {
+                                                element: e4,
+                                                connection: e4.in_connections,
+                                                out: []
+                                            },
+                                            {
+                                                element: e4,
+                                                connection: e4.in_connections,
+                                                out: []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                element: e2,
+                                connection: e2.in_connections,
+                                out: [
+                                    {
+                                        element: e4,
+                                        connection: e4.in_connections,
+                                        out: []
+                                    },
+                                    {
+                                        element: e3,
+                                        connection: e3.in_connections,
+                                        out: [
+                                            {
+                                                element: e4,
+                                                connection: e4.in_connections,
+                                                out: []
+                                            },
+                                            {
+                                                element: e4,
+                                                connection: e4.in_connections,
+                                                out: []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                element: g4,
+                connection: [],
+                out: [
+                    {
+                        element: e3,
+                        connection: e3.in_connections,
+                        out: [
+                            {
+                                element: e4,
+                                connection: e4.in_connections,
+                                out: []
+                            },
+                            {
+                                element: e4,
+                                connection: e4.in_connections,
+                                out: []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                element: g3,
+                connection: [],
+                out: [
+                    {
+                        element: e2,
+                        connection: e2.in_connections,
+                        out: [
+                            {
+                                element: e4,
+                                connection: e4.in_connections,
+                                out: []
+                            },
+                            {
+                                element: e3,
+                                connection: e3.in_connections,
+                                out: [
+                                    {
+                                        element: e4,
+                                        connection: e4.in_connections,
+                                        out: []
+                                    },
+                                    {
+                                        element: e4,
+                                        connection: e4.in_connections,
+                                        out: []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]);
     });
 });

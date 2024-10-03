@@ -7,8 +7,26 @@ import * as Types from '../types';
  * как отсутствовать, так и быть в единственном или множественном числе.
  */
 class Connection implements Interface.Connection {
+    //--------------------------------- Connection:in --------------------------------//
+    /**
+     * * Массив подключенных входов или false, если входы отсутствуют
+     */
     in: Types.SourcesArray | false;
+    //--------------------------------- Connection:in --------------------------------//
+
+    //--------------------------------- Connection:out --------------------------------//
+    /**
+     * * Выход соединения (только для чтения)
+     */
     readonly out: Types.Sources;
+    //--------------------------------- Connection:out --------------------------------//
+
+    //--------------------------------- Connection:state --------------------------------//
+    /**
+     * * Текущий сигнал соединения
+     */
+    state: Types.Signal;
+    //--------------------------------- Connection:state --------------------------------//
 
     /**
      * Создает новое соединение с подключением только выхода,
@@ -32,18 +50,47 @@ class Connection implements Interface.Connection {
     constructor(outSource: Types.Sources, inSourceArray: Types.SourcesArray);
 
     /**
+     * Создает новое соединение и его состояние с одним выходом и одним входом.
+     * @param outSource выход соединения
+     * @param inSource вход соединения
+     * @param state Текущее состояние элемента
+     */
+    constructor(outSource: Types.Sources, inSource: Types.Sources, state: Types.Signal);
+
+    /**
+     * Создает новое соединение и его состояние с одним выходом и несколькими входами.
+     * @param outSource выход соединения
+     * @param inSourceArray массив входов соединения
+     * @param state Текущее состояние элемента
+     */
+    constructor(outSource: Types.Sources, inSourceArray: Types.SourcesArray, state: Types.Signal);
+
+    /**
      * Основной конструктор, который позволяет создать соединение с
      * одним выходом и опциональными входами.
+     *
      * Соединение обязательно должно иметь выход, но может не иметь входов
      * либо иметь один или несколько.
      *
+     * У соединений есть состояния. Они доступны только если in подключен.
+     *
      * @param outSource выход соединения
      * @param arg2 вход (или массив входов) соединения (не обязательно)
+     * @param state Текущее состояние элемента
      */
-    constructor(outSource: Types.Sources, arg2?: Types.Sources | Types.SourcesArray) {
+    constructor(
+        outSource: Types.Sources,
+        arg2?: Types.Sources | Types.SourcesArray,
+        state?: Types.Signal
+    ) {
         this.in = false;
         this.out = outSource;
+        this.state = 'z';
         if (arg2) {
+            this.state = 'x';
+            if (state) {
+                this.state = state;
+            }
             if (Array.isArray(arg2)) {
                 this.in = arg2;
             } else {

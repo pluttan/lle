@@ -70,7 +70,7 @@ class ElementGraph implements Interface.ElementGraph {
                 }
             }
         } else {
-            this.tree.push({ element: pointElement, connection: [], out: [] });
+            this.tree.push({element: pointElement, connection: [], out: []});
         }
         return this.tree;
     }
@@ -192,7 +192,7 @@ class ElementGraph implements Interface.ElementGraph {
                 if (nuo.length !== it[i].out.length) {
                     for (let j = 0; j < nuo.length; j++) {
                         if (typeof nuo[j] === 'string') {
-                            ret.push({ name: nuo[j] as string, element: it[i].element });
+                            ret.push({name: nuo[j] as string, element: it[i].element});
                         }
                     }
                 }
@@ -305,6 +305,67 @@ class ElementGraph implements Interface.ElementGraph {
         const arr = this.getAllNodeDFS();
         return arr.filter((value, index, self) => self.indexOf(value) === index);
     }
+
+    /**
+     * Экспортирует граф для фронта
+     * @returns Экспортированный граф
+     */
+    getDataElementGraph(): Types.dataElementGraph {
+        const nodes = this.getAllNodeBFS();
+        const elems = this.getElementArrayFromNodeArray(nodes);
+        const elements: Types.exportElements = [];
+        for (let i = 0; i < nodes.length; i++) {
+            elements.push({
+                name: nodes[i].element.name as string,
+                id: i,
+                connections_in: [] as {conn_name: string; id: number}[],
+                connections_out: [] as {conn_name: string; id: number[]}[]
+            });
+            if (nodes[i].element.in_connections) {
+                const thisConns = nodes[i].element.in_connections as (
+                    | string
+                    | Interface.Connection
+                )[];
+                for (let j = 0; j < thisConns.length; j++) {
+                    if (typeof thisConns[j] === 'string') {
+                        elements[i].connections_in.push({
+                            conn_name: thisConns[j] as string,
+                            id: -1
+                        });
+                    } else {
+                        elements[i].connections_in.push({
+                            conn_name: (thisConns[j] as Interface.Connection).findInString(
+                                nodes[i].element
+                            ),
+                            id: elems.indexOf((thisConns[j] as Interface.Connection).out.element)
+                        });
+                    }
+                }
+            }
+            for (let j = 0; j < nodes[i].element.out_connections.length; j++) {
+                const ids = [];
+                if (nodes[i].element.out_connections[j].in) {
+                    for (
+                        let k = 0;
+                        k < (nodes[i].element.out_connections[j].in as Types.SourcesArray).length;
+                        k++
+                    ) {
+                        ids.push(
+                            elems.indexOf(
+                                (nodes[i].element.out_connections[j].in as Types.SourcesArray)[k]
+                                    .element
+                            )
+                        );
+                    }
+                }
+
+                elements[i].connections_out.push({
+                    conn_name: nodes[i].element.out_connections[j].out.name,
+                    id: ids
+                });
+            }
+        }
+    }
 }
 
-export { ElementGraph };
+export {ElementGraph};

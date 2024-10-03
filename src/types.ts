@@ -15,7 +15,6 @@ import {Element, Connection} from './interface';
 type Signal = 1 | 0 | 'x' | 'z';
 //----------------------------------- Signal -----------------------------------//
 
-
 //----------------------------------- SignalArray -----------------------------------//
 /**
  * ! Стандартный способ задания сигналов элементов
@@ -25,14 +24,12 @@ type Signal = 1 | 0 | 'x' | 'z';
 type SignalArray = Signal[];
 //----------------------------------- SignalArray -----------------------------------//
 
-
 //----------------------------------- StringSignalArray -----------------------------------//
 /**
  * * Массив сигналов теперь можно задавать и через строки
  */
-type StringSignalArray = (SignalArray|string);
+type StringSignalArray = SignalArray | string;
 //----------------------------------- StringSignalArray -----------------------------------//
-
 
 //----------------------------------- StateArray -----------------------------------//
 /**
@@ -62,9 +59,8 @@ type StringSignalArray = (SignalArray|string);
  * const nestedStateArray: StateArray = [`control`, 1, [`enable`, 0, [1, 1, 1, 0]]];
  *
  */
-type StateSignal = {name:string, state:Signal, out:StringSignalArray|StateSignal};
+type StateSignal = {name: string; state: Signal; out: StringSignalArray | StateSignal};
 //----------------------------------- StateArray -----------------------------------//
-
 
 //----------------------------------- StateSignalArray -----------------------------------//
 /**
@@ -76,9 +72,8 @@ type StateSignal = {name:string, state:Signal, out:StringSignalArray|StateSignal
  * const stateSignalArray1: StateSignalArray = [[1, 0, 1, `z`], [`E_n`, 0, [0, 0, 0, 0]],[`else`, `x`, [1, 1, 0, 0]]];
  *```
  */
-type StateSignalArray = (StringSignalArray|StateSignal)[];
+type StateSignalArray = (StringSignalArray | StateSignal)[];
 //----------------------------------- StateSignalArray -----------------------------------//
-
 
 //----------------------------------- DetailSignal -----------------------------------//
 /**
@@ -88,9 +83,8 @@ type StateSignalArray = (StringSignalArray|StateSignal)[];
  * выхода просто задаются по порядку, но это не всегда удобно, поэтому был создан
  * детальный способ создания с сигналами и входа и выхода
  */
-type DetailSignal = {in:StringSignalArray, out:StringSignalArray};
+type DetailSignal = {in: StringSignalArray; out: StringSignalArray};
 //----------------------------------- DetailSignal -----------------------------------//
-
 
 //----------------------------------- DetailSignalArray -----------------------------------//
 /**
@@ -123,10 +117,9 @@ type DetailSignalArray = DetailSignal[];
  * ];
  * ```
  */
-type DSSSArray = (DetailSignal|StringSignalArray|StateSignal)[];
+type DSSSArray = (DetailSignal | StringSignalArray | StateSignal)[];
 //----------------------------------- StateSignalArray -----------------------------------//
 //=================================== Signals ===================================//
-
 
 //=================================== Connections ===================================//
 
@@ -134,9 +127,8 @@ type DSSSArray = (DetailSignal|StringSignalArray|StateSignal)[];
 /**
  * * Определение входа/выхода для соединения
  */
-type Sources = {name:string, element:Element};
+type Sources = {name: string; element: Element};
 //----------------------------------- Sources -----------------------------------//
-
 
 //----------------------------------- SourcesArray -----------------------------------//
 /**
@@ -147,14 +139,89 @@ type SourcesArray = Sources[];
 
 //=================================== Connections ===================================//
 
-
 //=================================== ElementTree ===================================//
 type ElementGraphNode = {
     element: Element;
     connection: Connection[];
     out: ElementGraphNode[];
-}
+};
 //=================================== ElementTree ===================================//
+
+//=================================== Model ===================================//
+/*
+ * * Тип времени для моделирования, содержащий текущее время, частоту,
+ * * начало/конец моделирования и конец паттерна
+ */
+type ModelTime = {
+    now: number; // Текущее время
+    freq: number; // Частота
+    begin: number; // Начало временного интервала
+    end: number; // Конец временного интервала
+    pattern_end: number; // Конец паттерна
+};
+
+/*
+ * * Тип для моделирования элемента
+ */
+// type ModelElement = {
+//     time: ModelTime;
+//     element: Element;
+//     state: string;
+// }
+
+/*
+ * Тип для описания состояния в определенный момент времени
+ */
+type ModelState = {
+    time: number;
+    state: string;
+};
+
+/*
+ * Массив из элементов моделирования. Предполагается для использования
+ * при моделировании одного элемента в разные моменты времени.
+ */
+type ModelStateArray = {
+    element: Element;
+    states: ModelState[];
+};
+//=================================== Model ===================================//
+
+
+//=================================== DataBridge ===================================//
+/*
+ * Массив элементов для передачи их на фронт (для отрисовки)
+ */
+type exportElements = {
+    name: string;
+    id: number;
+    connections_in: {
+        conn_name: string;
+        id: number;
+    }[];
+    connections_out: {
+        conn_name: string;
+        id: number[];
+    }[];
+}[];
+
+
+/*
+ * Граф элементов для передачи на фронт для отрисовки
+ */
+type exportElementGraph = {
+    id: number;
+    out: exportElementGraph
+}[];
+
+/*
+ * Граф и массив элементов для передачи на фронт для отрисовки
+ */
+type dataElementGraph = {
+    elements: exportElements;
+    elementGraph: exportElementGraph;
+}
+//=================================== DataBridge ===================================//
 
 export {
     Signal,
@@ -167,5 +234,11 @@ export {
     DSSSArray,
     Sources,
     SourcesArray,
-    ElementGraphNode
+    ElementGraphNode,
+    ModelTime,
+    ModelState,
+    ModelStateArray,
+    exportElements,
+    exportElementGraph,
+    dataElementGraph
 };

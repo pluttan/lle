@@ -12,6 +12,7 @@
     "test:elementgraph": "bin/jestrunner elementgraph",
     "test:connection": "bin/jestrunner connection",
     "test:general": "bin/jestrunner general",
+    "test:server": "bin/jestrunner server",
     "build": "webpack --config webpack.config.js",
     "dev": "tsc --watch",
     "prettier": "prettier --write ./src/**/*.ts ./bin/**/*.ts ./test/**/*.ts ./examples/**/*.ts ./docs/**/*.ts",
@@ -29,11 +30,16 @@
   "author": "pluttan",
   "license": "MIT",
   "devDependencies": {
+    "@catppuccin/highlightjs": "^1.0.0",
     "@eslint/js": "^9.11.1",
     "@types/babel__traverse": "7.0.6",
+    "@types/d3": "^7.4.3",
+    "@types/express": "^5.0.0",
     "@types/jest": "^24.9.1",
+    "@types/katex": "^0.16.7",
     "@types/node": "^12.7.5",
-    "@typescript-eslint/parser": "^8.7.0",
+    "@types/supertest": "^6.0.2",
+    "@typescript-eslint/parser": "^8.8.0",
     "docsify-cli": "^4.3.0",
     "eslint": "^9.11.1",
     "eslint-plugin-jsdoc": "^50.3.0",
@@ -60,8 +66,30 @@
     "@types/babel__traverse": "7.0.6"
   },
   "dependencies": {
+    "d3": "^7.9.0",
+    "express": "^4.21.0",
+    "formidable": "^3.5.1",
+    "highlight.js": "^11.10.0",
+    "jsdom": "^25.0.1",
+    "katex": "^0.16.11",
+    "prettier-eslint": "^16.3.0",
+    "react": "^18.3.1",
+    "react-konva": "^18.2.10",
+    "supertest": "^7.0.0",
     "ts-loader": "^9.5.1",
     "typedoc-material-theme": "1.1.0",
     "typedoc-plugin-markdown": "^4.2.8"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

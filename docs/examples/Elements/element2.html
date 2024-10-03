@@ -1,0 +1,58 @@
+
+    <html>
+    <head>
+    <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/@catppuccin/highlightjs@1.0.0/css/catppuccin-macchiato.css'>
+    <style>
+        body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+          font-family: Arial, sans-serif;
+          background-color: #232634;
+          color: #c6d0f5;
+        }
+        pre {
+          background-color: #303446;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          max-width: 80%;
+          word-wrap: break-word;
+        }
+        code {
+          font-size: 14px;
+        }
+    </style>
+    </head>
+    <body><pre><code><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> lle <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../../dist/lle&#x27;</span>;
+<span class="hljs-keyword">import</span> element1 <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./element1&#x27;</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-attr">element2</span>: lle.<span class="hljs-property">Element</span> = <span class="hljs-keyword">new</span> lle.<span class="hljs-title class_">Element</span>(
+    [<span class="hljs-string">&#x27;A_7&#x27;</span>, <span class="hljs-string">&#x27;A_6&#x27;</span>, <span class="hljs-string">&#x27;A_5&#x27;</span>, <span class="hljs-string">&#x27;A_4&#x27;</span>, <span class="hljs-string">&#x27;A_3&#x27;</span>, <span class="hljs-string">&#x27;A_2&#x27;</span>, <span class="hljs-string">&#x27;A_1&#x27;</span>, <span class="hljs-string">&#x27;A_0&#x27;</span>, <span class="hljs-string">&#x27;E_n&#x27;</span>],
+    [<span class="hljs-string">&#x27;F_2&#x27;</span>, <span class="hljs-string">&#x27;F_1&#x27;</span>, <span class="hljs-string">&#x27;F_0&#x27;</span>],
+    [
+        {<span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;E_n&#x27;</span>, <span class="hljs-attr">state</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">out</span>: <span class="hljs-string">&#x27;00000000&#x27;</span>},
+        {<span class="hljs-attr">in</span>: <span class="hljs-string">&#x27;000000011&#x27;</span>, <span class="hljs-attr">out</span>: <span class="hljs-string">&#x27;000&#x27;</span>},
+        {<span class="hljs-attr">in</span>: <span class="hljs-string">&#x27;000000101&#x27;</span>, <span class="hljs-attr">out</span>: <span class="hljs-string">&#x27;001&#x27;</span>},
+        {<span class="hljs-attr">in</span>: <span class="hljs-string">&#x27;000001001&#x27;</span>, <span class="hljs-attr">out</span>: <span class="hljs-string">&#x27;010&#x27;</span>},
+        {<span class="hljs-attr">in</span>: <span class="hljs-string">&#x27;000010001&#x27;</span>, <span class="hljs-attr">out</span>: <span class="hljs-string">&#x27;011&#x27;</span>},
+        {<span class="hljs-attr">in</span>: <span class="hljs-string">&#x27;000100001&#x27;</span>, <span class="hljs-attr">out</span>: <span class="hljs-string">&#x27;100&#x27;</span>},
+        {<span class="hljs-attr">in</span>: <span class="hljs-string">&#x27;001000001&#x27;</span>, <span class="hljs-attr">out</span>: <span class="hljs-string">&#x27;101&#x27;</span>},
+        {<span class="hljs-attr">in</span>: <span class="hljs-string">&#x27;010000001&#x27;</span>, <span class="hljs-attr">out</span>: <span class="hljs-string">&#x27;110&#x27;</span>},
+        {<span class="hljs-attr">in</span>: <span class="hljs-string">&#x27;100000001&#x27;</span>, <span class="hljs-attr">out</span>: <span class="hljs-string">&#x27;111&#x27;</span>},
+        {<span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;else&#x27;</span>, <span class="hljs-attr">state</span>: <span class="hljs-string">&#x27;x&#x27;</span>, <span class="hljs-attr">out</span>: <span class="hljs-string">&#x27;&#x27;</span>}
+    ]
+);
+
+element1.<span class="hljs-title function_">add</span>(element2);
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(element1.<span class="hljs-property">in_connections</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(element1.<span class="hljs-property">out_connections</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(element2.<span class="hljs-property">in_connections</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(element2.<span class="hljs-property">out_connections</span>);
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> element2;
+</code></pre></body>
+    </html>
