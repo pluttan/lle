@@ -8,8 +8,7 @@
     "sourceMap": true,
     "emitDeclarationOnly": false,
     "skipLibCheck": true,
-    "jsx": "react-jsx",
-    "strict": true, // Включает строгий режим
+    "strict": true, 
     "baseUrl": "./",
     "outDir": "./dist",
   },

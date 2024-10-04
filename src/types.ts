@@ -187,7 +187,6 @@ type ModelStateArray = {
 };
 //=================================== Model ===================================//
 
-
 //=================================== DataBridge ===================================//
 /*
  * Массив элементов для передачи их на фронт (для отрисовки)
@@ -205,13 +204,12 @@ type exportElements = {
     }[];
 }[];
 
-
 /*
  * Граф элементов для передачи на фронт для отрисовки
  */
 type exportElementGraph = {
     id: number;
-    out: exportElementGraph
+    out: exportElementGraph;
 }[];
 
 /*
@@ -220,7 +218,7 @@ type exportElementGraph = {
 type dataElementGraph = {
     elements: exportElements;
     elementGraph: exportElementGraph;
-}
+};
 //=================================== DataBridge ===================================//
 
 export {

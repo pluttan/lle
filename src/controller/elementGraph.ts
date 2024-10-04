@@ -365,6 +365,35 @@ class ElementGraph implements Interface.ElementGraph {
                 });
             }
         }
+        const eeg: Types.exportElementGraph = [];
+        for (let i = 0; i < this.tree.length; i++) {
+            this.recExportElementGraph(this.tree[i], eeg, elems);
+        }
+        return {
+            elements: elements,
+            elementGraph: eeg
+        };
+    }
+
+    /**
+     * Рекурсивно обходим граф в глубину
+     * @param node
+     * @param ret
+     * @param elems
+     */
+    private recExportElementGraph(
+        node: Types.ElementGraphNode,
+        ret: Types.exportElementGraph,
+        elems: Interface.Element[]
+    ) {
+        const id = elems.indexOf(node.element);
+        ret.push({
+            id: id,
+            out: []
+        });
+        for (let j = 0; j < node.out.length; j++) {
+            this.recExportElementGraph(node.out[j], ret[ret.length - 1].out, elems);
+        }
     }
 }
 

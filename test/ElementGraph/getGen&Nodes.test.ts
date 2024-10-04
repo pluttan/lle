@@ -26,11 +26,8 @@ describe('Check DFS/BFS functions', () => {
     });
 
     test('check getConnectionsNode', () => {
-        console.log(eg.getConnectionsNode(eg.tree[0].out[0]));
-        const util = require('util');
-
-        // Выводим объект графа
-        console.log(util.inspect(eg.tree, {showHidden: false, depth: 5, colors: true}));
-        // expect(eg.getConnectionsNode(g1.out[0])).toEqual([g1, g2, g4, g3]);
+        expect(eg.getConnectionsNode(eg.tree[0].out[0])).toEqual(
+            eg.tree[0].out[0].element.out_connections
+        );
     });
 });

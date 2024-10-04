@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/factories.ts</title>
+    <title>Code coverage report for src/server.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -18,34 +18,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">src</a> factories.ts</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">src</a> server.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -106,24 +106,9 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -145,67 +130,88 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as Interface from './interface';
-import * as Types from './types';
-<span class="cstat-no" title="statement not covered" >import {Connection} from './controller/connection';</span>
-// ==================================== ConnectionFactory =====================================//
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import express from 'express';</span>
+import type { Express } from 'express';
+import type { Server as ServerExpress } from 'http';
+&nbsp;
+&nbsp;
 /**
- * Класс-шаблон, который предоставляет возможность другим классам создавать объект типа Interface.Connection
+ * Класс для открытия сервера для отрисовки и моделирования элементов
  */
-class ConnectionFactory&lt;ConnectionType extends Interface.Connection&gt; {
-    private connectionClass: new (outSource: Types.Sources, arg2?: (Types.Sources|Types.SourcesArray)) =&gt; ConnectionType;
+class Server{
+    /**
+     * Сервер на express
+     */
+    app: Express;
+    serv: ServerExpress;
 &nbsp;
     /**
-     * Конструктор фабрики, принимает класс, который необходимо создать
-     * @param connectionClass класс который необходимо создать
+     * Открывает сервер на заданном порту
+     * @param port порт(по умолчанию 3000)
+     * @returns Приложение
      */
-<span class="fstat-no" title="function not covered" >    constructor(c</span>onnectionClass: new (outSource: Types.Sources, arg2?: (Types.Sources|Types.SourcesArray)) =&gt; ConnectionType) {
-<span class="cstat-no" title="statement not covered" >        this.connectionClass = connectionClass;</span>
+<span class="fstat-no" title="function not covered" >    constructor(p</span>ort?:number){
+<span class="cstat-no" title="statement not covered" >        this.app = express();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        this.serv = this.app.listen(port?port:3000, <span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            console.log(`Server is running at http://localhost:${port?port:3000}`);</span>
+        });
     }
 &nbsp;
     /**
-     * Перегрузка метода создания Сonnection подробнее см. {@link Connection}
+     * Функция путь, передает по определенному
+     * пути html
+     * `let serv = (new lle.Server()).way('', body.html);`
+     * @param way путь по которому будет передан html
+     * @param html сам html
+     * @returns сервер
      */
-    create(outSource: Types.Sources): ConnectionType;
-    /**
-     * Перегрузка метода создания Сonnection подробнее см. {@link Connection}
-     */
-    create(outSource: Types.Sources, inSource: Types.Sources): ConnectionType;
-    /**
-     * Перегрузка метода создания Сonnection подробнее см. {@link Connection}
-     */
-    create(outSource: Types.Sources, inSourceArray: Types.SourcesArray): ConnectionType;
+<span class="fstat-no" title="function not covered" >    way(</span>way:string, html:string): Server{
+<span class="cstat-no" title="statement not covered" >        this.app.get('/'+way, <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            res.send(html);</span>
+        });
+<span class="cstat-no" title="statement not covered" >        return this;</span>
+    }
 &nbsp;
     /**
-     * Перегрузка метода создания Сonnection подробнее см. {@link Connection}
-     * @param outSource
-     * @param arg2
-     * @returns элемент Connection
+     * Закрываем сервер
      */
-<span class="fstat-no" title="function not covered" >    create(</span>outSource: Types.Sources, arg2?: (Types.Sources|Types.SourcesArray)): ConnectionType {
-<span class="cstat-no" title="statement not covered" >        if (arg2){</span>
-<span class="cstat-no" title="statement not covered" >            return new this.connectionClass(outSource, arg2);</span>
-        }
-<span class="cstat-no" title="statement not covered" >        return new this.connectionClass(outSource);</span>
+<span class="fstat-no" title="function not covered" >    close(</span>):void{
+<span class="cstat-no" title="statement not covered" >        this.serv.close();</span>
     }
 }
-// ==================================== ConnectionFactory =====================================//
-const Factories = <span class="cstat-no" title="statement not covered" >{</span>
-    Connection: new ConnectionFactory&lt;Connection&gt;(Connection)
-};
 &nbsp;
-export {<span class="cstat-no" title="statement not covered" >Factories}</span>;
+export {<span class="cstat-no" title="statement not covered" >Server}</span>;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

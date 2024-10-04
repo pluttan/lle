@@ -564,6 +564,15 @@ interface ElementGraph {
     getSetNodeDFS(): Types.ElementGraphNode[];
     //--------------------------------- ElementGraph:getSetNodeDFS --------------------------------//
 
+    //--------------------------------- ElementGraph:getDataElementGraph --------------------------------//
+    /**
+    /**
+     * * Экспортирует граф для фронта
+     * @returns Экспортированный граф
+     */
+    getDataElementGraph(): Types.dataElementGraph;
+    //--------------------------------- ElementGraph:getDataElementGraph --------------------------------//
+
 }
 //=================================== interface ElementGraph ===================================//
 
