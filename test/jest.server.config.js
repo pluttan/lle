@@ -1,5 +1,3 @@
-const {testMatch} = require('./jest.testlib.config');
-
 module.exports = {
     collectCoverage: true,
     collectCoverageFrom: ['src/server.ts'],
