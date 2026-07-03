@@ -4,10 +4,6 @@
 
 **TypeScript-библиотека для моделирования, соединения и визуализации логических элементов с симуляцией гонок сигналов**
 
-[![License](https://img.shields.io/badge/license-MIT-2C2C2C?style=for-the-badge&labelColor=1E1E1E)](LICENSE)
-[![TypeScript](https://img.shields.io/badge/TypeScript_5.5-3178C6?style=for-the-badge&logo=typescript&labelColor=1E1E1E)](https://www.typescriptlang.org)
-[![npm](https://img.shields.io/badge/npm-ldamle-CB3837?style=for-the-badge&logo=npm&labelColor=1E1E1E)](https://www.npmjs.com/package/ldamle)
-[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&labelColor=1E1E1E)](https://nodejs.org)
 
 </div>
 
@@ -41,7 +37,7 @@
 
 </div>
 
-## ■ Как работает
+## ■ Как это работает
 
 ```
 1. Создаются экземпляры Element / Generator, соединяемые через объекты Connection
@@ -52,7 +48,7 @@
 6. graphView отрисовывает дерево зависимостей как масштабируемый D3 SVG в браузере
 ```
 
-## ■ Установка и запуск
+## ■ Использование
 
 ```sh
 # Создать новый Node-проект
@@ -84,6 +80,6 @@ const clk = new lle.Generator(1000); // меандр 1 кГц
 - [Класс ElementGraph](https://pluttan.github.io/lle/test/coverage/elementgraph/)
 - [Типы и фабрики](https://pluttan.github.io/lle/test/coverage/general/)
 
-## ■ License
+## ■ Лицензия
 
 MIT © [pluttan](https://github.com/pluttan)
